@@ -16,6 +16,8 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 
 Branch `theme-refresh` restyles the site after Mags' Lovable reference design: Cormorant Garamond display type, Karla body, cream ground, deep green primary, terracotta accent, 4px radii, hairline-bordered tile grids. Tokens live at the top of `src/styles/global.css`. `main` holds the faithful port of the old WordPress look.
 
+`/home-alt/` (`src/pages/home-alt.astro`) is an alternative homepage: a like-for-like rebuild of the Lovable "Me Time Away" page, with its own header, footer and scoped styles. It is noindex and out of the sitemap. The eight retreat-type tiles are not links because the `/retreats/*` pages do not exist here.
+
 ## Commands
 
 - `npm run dev` : local dev server
