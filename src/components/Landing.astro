@@ -6,8 +6,8 @@ const { heading, lead, formName, button, cover, coverAlt, photo, closingCta, str
 const U = '/wp-content/uploads';
 const brands = [['logo-expedia-300x183-1.webp', 'Expedia'], ['logo-hotels-300x183-1.webp', 'Hotels.com'], ['logo-newlook-300x183-1.webp', 'New Look'], ['logo-bookatable-300x183-1.webp', 'Bookatable'], ['logo-cooler-300x183-1.webp', 'Cooler'], ['rideuk-bmx-300x183-1.webp', 'Ride UK BMX']];
 ---
-<section class="landing-hero" style="margin-top:28px">
-  <div class="wrap split">
+<section class="landing-hero">
+  <div class="split">
     <div>
       <h1>{heading}</h1>
       <p class="lead">{lead}</p>
@@ -16,7 +16,7 @@ const brands = [['logo-expedia-300x183-1.webp', 'Expedia'], ['logo-hotels-300x18
     <img class="cover" src={U + cover} alt={coverAlt} />
   </div>
 </section>
-<section class="wrap split section intro">
+<section class="section split intro">
   <div>
     <slot name="intro" />
   </div>
@@ -24,17 +24,17 @@ const brands = [['logo-expedia-300x183-1.webp', 'Expedia'], ['logo-hotels-300x18
 </section>
 <section class="wrap">
   <h2 class="subhead">Some of the brands I've worked with</h2>
-  <div class="logos band-sand" style="padding:8px 24px">
-    {brands.map(([f, alt]) => <img src={U + '/2021/12/' + f} alt={alt} loading="lazy" style="max-height:92px" />)}
+  <div class="brands" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+    {brands.map(([f, alt]) => <div><img src={U + '/2021/12/' + f} alt={alt} loading="lazy" /></div>)}
   </div>
 </section>
-<p class="stat">61% of users start an online search from the search engine. 95% of them will never go to the 2nd Google page. Fact.</p>
-<section class="wrap split">
+<section class="section band-primary" style="margin-top:96px"><p class="stat">61% of users start an online search from the search engine. 95% of them will never go to the 2nd Google page. Fact.</p></section>
+<section class="section split">
   <img src={U + '/2022/02/mags-sikora-writing-an-ebook.webp'} alt="Mags Sikora writing on a laptop" loading="lazy" />
   <div>
     <p class="eyebrow">Imagine that</p>
-    <h2 style="font-size:clamp(26px,3.4vw,36px)"><slot name="imagine" /></h2>
-    <ul>
+    <h2 class="display"><slot name="imagine" /></h2>
+    <ul class="ruled">
       <li>You have a clear process in mind to make your blog post Google friendly!</li>
       <li>You increase chances to rank your posts higher in Google! The higher your posts rank for relevant terms, the more targetted traffic you get and the more leads it generates!</li>
       <li>You understand better how Google sees your posts.</li>
@@ -42,7 +42,7 @@ const brands = [['logo-expedia-300x183-1.webp', 'Expedia'], ['logo-hotels-300x18
     </ul>
   </div>
 </section>
-<section class="closing">
+<section class="section band-secondary closing">
   <p>Give Google <span>a good reason</span> to rank you on their 1st page!</p>
   <a class="btn" href="#subscribe">{closingCta}</a>
 </section>

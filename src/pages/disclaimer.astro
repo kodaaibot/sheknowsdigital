@@ -7,5 +7,5 @@ const entry = await getEntry('legal', 'disclaimer');
 const { Content } = await render(entry!);
 ---
 <Base title={m.title} description={m.description} noindex>
-  <div class="wrap narrow prose" style="padding-top:64px"><Content /></div>
+  <div class="post-body"><div class="narrow prose"><Content /></div></div>
 </Base>

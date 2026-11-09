@@ -12,6 +12,10 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
   - The checklist and ebook forms only collect signups in Netlify. Nothing emails the subscriber or delivers the PDF until an email tool is connected, although `/thank-you/` tells people to check their inbox.
   - `/cookie-policy/` has a heading and no body, as on WordPress. Footer items "Terms of Use" and "Privacy and Cookie Policy" are unlinked, as on WordPress.
 
+## Design
+
+Branch `theme-refresh` restyles the site after Mags' Lovable reference design: Cormorant Garamond display type, Karla body, cream ground, deep green primary, terracotta accent, 4px radii, hairline-bordered tile grids. Tokens live at the top of `src/styles/global.css`. `main` holds the faithful port of the old WordPress look.
+
 ## Commands
 
 - `npm run dev` : local dev server

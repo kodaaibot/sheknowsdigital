@@ -20,53 +20,52 @@ const brands = [
   ['2022/02/nl-logo-2.webp', 'New Look'], ['2022/02/nf-logo.webp', 'Netflights'], ['2021/12/logo-bookatable-300x183-1.webp', 'Bookatable'], ['2021/12/logo-cooler-300x183-1.webp', 'Cooler'],
 ];
 ---
-<Base title={m.title} description={m.description}>
-  <section class="wrap split hero">
-    <div>
+<Base title={m.title} description={m.description} overlayHeader>
+  <section class="hero">
+    <div class="copy">
       <h1>Ecommerce SEO Consultant</h1>
       <p class="aside">... and occasional gardener</p>
-      <p class="headline">Attract the right audience.</p>
-      <p class="headline"><em>Grow</em> faster.</p>
-      <p class="headline"><em>Organically</em>.</p>
+      <p class="headline">Attract the right audience. <em>Grow</em> faster. <em>Organically</em>.</p>
       <p class="cta">
-        <a class="btn" href="/contact/">contact &gt;</a>
-        <a class="btn ghost" href="/seo-checklist-blog-post-writing/">free resources &gt;&gt;&gt;</a>
+        <a class="btn" href="/contact/">Contact</a>
+        <a class="btn ghost" href="/seo-checklist-blog-post-writing/">Free resources</a>
       </p>
     </div>
-    <img src={U + '/2025/07/Mags-Sikora-SEO-Strategist-768x1024.webp'} alt="Mags Sikora SEO Strategist" width="768" height="1024" fetchpriority="high" />
+    <div class="photo"><img src={U + '/2025/07/Mags-Sikora-SEO-Strategist-768x1024.webp'} alt="Mags Sikora SEO Strategist" width="768" height="1024" fetchpriority="high" /></div>
   </section>
 
-  <section class="wrap press logos" aria-label="As featured in">
+  <section class="strip" aria-label="As featured in">
     {press.map(([f, alt]) => <img src={U + '/2021/12/' + f} alt={alt} loading="lazy" />)}
   </section>
 
-  <section class="band-sand experience">
-    <div class="wrap split" style="gap:0">
-      <img src={U + '/2022/02/mags-sikora-ecommerce-seo-specialist-london-747x1024.webp'} alt="Mags Sikora, ecommerce SEO specialist, London" width="747" height="1024" loading="lazy" />
-      <div class="card">
-        <h2 class="eyebrow">SEO experience</h2>
-        <p class="big display">18+ years</p>
-        <ul>
-          <li>I’ve worked with many well established companies but also startups and solopreneurs to help them drive organic traffic to their sites.</li>
-          <li>The majority of those projects have consisted of large-scale technical audits, content strategy development, organic traffic strategy creation and support during website migrations.</li>
-          <li>I have also provided my SEO services to a number of new website developments and startup marketing launches.</li>
-          <li>And some of the agencies in London hire me on a consultancy basis when require additional SEO expertise.</li>
-        </ul>
-      </div>
+  <section class="section split">
+    <img src={U + '/2022/02/mags-sikora-ecommerce-seo-specialist-london-747x1024.webp'} alt="Mags Sikora, ecommerce SEO specialist, London" width="747" height="1024" loading="lazy" />
+    <div>
+      <h2 class="eyebrow">SEO experience</h2>
+      <p class="display">18+ years</p>
+      <ul class="ruled">
+        <li>I’ve worked with many well established companies but also startups and solopreneurs to help them drive organic traffic to their sites.</li>
+        <li>The majority of those projects have consisted of large-scale technical audits, content strategy development, organic traffic strategy creation and support during website migrations.</li>
+        <li>I have also provided my SEO services to a number of new website developments and startup marketing launches.</li>
+        <li>And some of the agencies in London hire me on a consultancy basis when require additional SEO expertise.</li>
+      </ul>
     </div>
   </section>
 
-  <section class="band-slate">
+  <section class="section band-primary statement">
     <p>Getting on the top of Google search results pages is challenging but it is also crucial if you want your business to be found online.</p>
   </section>
 
-  <section class="wrap section">
-    <p class="eyebrow">Most popular</p>
-    <h2 class="display">SEO Services</h2>
-    <div class="services">
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Most popular</p>
+        <h2 class="display" style="margin:0">SEO Services</h2>
+      </div>
+    </div>
+    <div class="tiles">
       {services.map(([name, tag, text]) => (
-        <div class="service">
-          <img src={U + '/2021/12/SEO-strategy-and-planning-icon-sdk.png'} alt="" loading="lazy" />
+        <div class="tile">
           <h3>{name}</h3>
           <p class="tag">{tag}</p>
           <p>{text}</p>
@@ -75,15 +74,15 @@ const brands = [
     </div>
   </section>
 
-  <section class="wrap section" style="padding-top:0">
+  <section class="section" style="padding-top:0">
     <p class="eyebrow">Some of the brands</p>
     <h2 class="display">I've work with</h2>
     <div class="brands">
-      {brands.map(([f, alt]) => <img src={U + '/' + f} alt={alt} loading="lazy" />)}
+      {brands.map(([f, alt]) => <div><img src={U + '/' + f} alt={alt} loading="lazy" /></div>)}
     </div>
   </section>
 
-  <section class="band-sand testimonial">
+  <section class="section band-secondary testimonial">
     <h2 class="eyebrow">And this is what they say...</h2>
     <blockquote>
       <p>Working with Mags is a pleasure – she’s a real team player who’s passionate, committed, hard-working and cares deeply about her work. A true digital expert, she has her finger firmly on the pulse of developments and changes in the digital &amp; SEO landscape. Mags intrinsically understands digital channels and how to leverage them to can create real business value. It’s a pleasure to recommend her.</p>

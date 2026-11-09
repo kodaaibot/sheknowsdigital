@@ -1,8 +1,10 @@
 ---
-import '@fontsource/poppins/300.css';
-import '@fontsource/poppins/400.css';
-import '@fontsource/poppins/500.css';
-import '@fontsource/poppins/700.css';
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/karla/400.css';
+import '@fontsource/karla/500.css';
+import '@fontsource/karla/600.css';
 import '../styles/global.css';
 import { SITE, NAV } from '../lib/site';
 
@@ -12,9 +14,10 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   noindex?: boolean;
+  overlayHeader?: boolean;
   schema?: object[];
 }
-const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, schema = [] } = Astro.props;
+const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, overlayHeader = false, schema = [] } = Astro.props;
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
 const canonical = new URL(path, SITE.url).href;
 const graph = {
@@ -58,8 +61,8 @@ const graph = {
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
-    <header class="site-header">
-      <a class="logo" href="/">SHE <span>KNOWS</span> DIGITAL</a>
+    <header class:list={['site-header', { overlay: overlayHeader }]}>
+      <a class="logo" href="/">she knows digital</a>
       <nav aria-label="Main">
         <ul>
           {NAV.map((n) => (
@@ -70,15 +73,13 @@ const graph = {
     </header>
     <main id="content"><slot /></main>
     <footer class="site-footer">
-      <div class="wrap">
-        <p class="footer-title">About us</p>
-        <ul>
-          <li><a href="/contact/">Contact</a></li>
-          <li>Terms of Use</li>
-          <li>Privacy and Cookie Policy</li>
-          <li><a href="/disclaimer/">Disclaimer</a></li>
-        </ul>
-      </div>
+      <ul>
+        <li><a href="/contact/">Contact</a></li>
+        <li>Terms of Use</li>
+        <li>Privacy and Cookie Policy</li>
+        <li><a href="/disclaimer/">Disclaimer</a></li>
+      </ul>
+      <p>© {new Date().getFullYear()} She Knows Digital</p>
     </footer>
   </body>
 </html>
