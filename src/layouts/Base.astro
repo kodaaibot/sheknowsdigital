@@ -72,18 +72,43 @@ const graph = {
     <main id="content"><slot /></main>
     <footer class="site-footer">
       <div class="inner">
-        <div>
-          <p class="name">Mags Sikora</p>
-          <p class="blurb">Senior eCommerce SEO Consultant. Written between hikes, with a cat on the keyboard.</p>
+        <div class="brand">
+          <a class="logo" href="/">she<span>knows</span>digital</a>
+          <p class="blurb">Senior eCommerce SEO consulting by Mags Sikora. Written between hikes, with a cat on the keyboard.</p>
+          <a class="footer-cta" href="/contact/">Book a call</a>
         </div>
+        <nav class="cols" aria-label="Footer">
+          <div>
+            <h2>Explore</h2>
+            <ul>
+              {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <h2>Resources</h2>
+            <ul>
+              <li><a href="/seo-checklist-blog-post-writing/">SEO Checklist</a></li>
+              <li><a href="/seo-ebook/">SEO eBook</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Elsewhere</h2>
+            <ul>
+              <li><a href="https://www.linkedin.com/in/magdalenasikora/" rel="noopener me">LinkedIn</a></li>
+              <li><a href="https://www.youtube.com/c/Sheknowsdigital" rel="noopener me">YouTube</a></li>
+              <li><a href="https://www.magstags.com/" rel="noopener me">MagsTags</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="base">
+        <p>© {new Date().getFullYear()} sheknowsdigital. Grown organically.</p>
         <ul>
-          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-          <li><a href="/contact/">Contact</a></li>
-          <li><a href="/seo-checklist-blog-post-writing/">SEO Checklist</a></li>
           <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
           <li><a href="/disclaimer/">Disclaimer</a></li>
+          <li><a href="/cookie-policy/">Cookie Policy</a></li>
         </ul>
-        <p class="copy">© {new Date().getFullYear()} sheknowsdigital. Grown organically.</p>
       </div>
     </footer>
   </body>
