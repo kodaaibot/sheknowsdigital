@@ -25,11 +25,14 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
 ---
 <Base title="Mags Sikora — Senior eCommerce SEO Consultant | sheknowsdigital" description="18+ years of enterprise eCommerce SEO for Expedia, New Look, Emirates Group and Hotels.com. Technical audits, migrations, AI & full-SERP strategy." page={{ about: { '@id': ORG_ID } }} schema={[organization, personStub, website]}>
   <div class="he">
+    <div class="first-screen">
     <section class="cover">
       <div class="cover-inner">
         <p class="label muted">Independent consultant · 18+ years in enterprise SEO</p>
-        <h1 class="title">Mags Sikora<span class="clay">.</span></h1>
-        <p class="subtitle">Senior eCommerce SEO consultant</p>
+        <h1 class="hero-h1">
+          <span class="title">Mags Sikora<span class="clay">.</span></span>
+          <span class="subtitle">Senior eCommerce SEO consultant</span>
+        </h1>
         <div class="cover-bottom">
           <div>
             <p class="cover-copy">Clear direction for complex websites. Technical audits, migrations and organic growth—with senior expertise at every step.</p>
@@ -55,6 +58,7 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
         <div class="brands">{brands.map(([file, name]) => <img src={`/wp-content/uploads/2022/02/${file}.webp`} alt={name} width="260" height="150" loading="lazy" />)}</div>
       </div>
     </section>
+    </div>
 
     <section class="container section intro">
       <div>
@@ -213,8 +217,11 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .outline:hover { text-decoration: none; background: var(--clay); color: oklch(98% 0.01 85); }
 
   .cover-inner { max-width: 1152px; margin-inline: auto; padding: 64px 32px 56px; }
-  .title { color: var(--primary); margin-top: 24px !important; font-size: 112px; line-height: 1.05; }
-  .subtitle { font-family: var(--display); color: var(--muted); margin-top: 12px !important; font-size: 32px; font-style: italic; }
+  /* One h1 holding both lines; each line keeps its own styling. */
+  .hero-h1 { font: inherit; }
+  .hero-h1 > span { display: block; }
+  .title { font-family: var(--display); font-weight: 400; color: var(--primary); margin-top: 24px !important; font-size: 112px; line-height: 1.05; }
+  .subtitle { font-family: var(--display); font-weight: 400; color: var(--muted); margin-top: 12px !important; font-size: 32px; line-height: 1.5; font-style: italic; }
   .cover-bottom { border-top: 1px solid var(--border); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; gap: 64px; margin-top: 40px; padding-top: 32px; }
   .cover-copy { max-width: 480px; color: var(--muted); line-height: 1.8; }
   .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 28px; margin-top: 24px; }
@@ -281,6 +288,25 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .press-logos { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-inline: 4%; }
   .press-logos img { width: var(--s); height: var(--s); mix-blend-mode: multiply; opacity: .9; }
 
+  /* Desktop: the hero and the "Experience with" strip together fill exactly the first screen (69px sticky header).
+     Sizes scale with the viewport height so the strip stays above the fold on short laptop screens. */
+  @media (min-width: 768px) {
+    .first-screen { display: flex; flex-direction: column; min-height: min(calc(100svh - 69px), 900px); }
+    .cover { flex: 1; display: flex; align-items: center; }
+    .cover-inner { width: 100%; padding-block: clamp(20px, 5.6vh, 64px) clamp(18px, 4.8vh, 56px); }
+    .title { margin-top: clamp(8px, 2.4vh, 24px) !important; font-size: clamp(64px, 13.4vh, 112px); }
+    .subtitle { margin-top: clamp(6px, 1.4vh, 12px) !important; font-size: clamp(22px, 3.8vh, 32px); }
+    .cover-bottom { margin-top: clamp(16px, 4.2vh, 40px); padding-top: clamp(14px, 3.4vh, 32px); }
+    .cover-copy { line-height: clamp(1.55, 0.2vh + 0.2, 1.8); }
+    .actions { margin-top: clamp(14px, 2.6vh, 24px); }
+    .proof-inner { padding-block: clamp(10px, 2.4vh, 26px); }
+    .brands img { height: clamp(52px, 9vh, 80px); }
+  }
+  /* Tablet: three columns do not fit, so Soya moves under the text. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .personal-layout { grid-template-columns: 240px minmax(0, 1fr); gap: 48px; }
+    .soy { grid-column: 2; max-width: 220px; }
+  }
   @media (max-width: 767px) {
     .container { padding-inline: 24px; }
     .section { padding-block: 56px; }
