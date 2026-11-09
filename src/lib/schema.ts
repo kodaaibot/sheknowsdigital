@@ -35,12 +35,7 @@ export const organization = {
   alternateName: 'sheknowsdigital',
   legalName: 'She Knows Digital Sp z o.o.',
   url: `${SITE.url}/`,
-  logo: {
-    '@type': 'ImageObject',
-    url: `${SITE.url}/wp-content/uploads/2021/12/she-knows-digital-logo.png`,
-    width: 190,
-    height: 32,
-  },
+  logo: { '@type': 'ImageObject', url: `${SITE.url}/logo-512.png`, width: 512, height: 512 },
   image: `${SITE.url}/images/home/mags-sikora-about.webp`,
   description:
     'Independent eCommerce SEO consultancy led by Mags Sikora. Technical audits, large-scale migrations, AI and full-SERP strategy, information architecture and organic growth advisory for enterprise websites.',
@@ -112,11 +107,56 @@ export const person = {
   sameAs: PERSON_SAME_AS,
 };
 
-export const breadcrumb = (path: string, name: string) => ({
+export type Crumb = [name: string, path: string];
+
+/** Home > ...trail > current page. */
+export const breadcrumb = (path: string, name: string, trail: Crumb[] = []) => ({
   '@type': 'BreadcrumbList',
   '@id': `${SITE.url}${path}#breadcrumb`,
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
-    { '@type': 'ListItem', position: 2, name, item: `${SITE.url}${path}` },
-  ],
+  itemListElement: [['Home', '/'] as Crumb, ...trail, [name, path] as Crumb].map(([n, p], i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: n,
+    item: `${SITE.url}${p}`,
+  })),
+});
+
+/** The page-level node every page carries. `extra` can change @type (ProfilePage, ContactPage...) and add properties. */
+export const webPage = (path: string, name: string, description: string | undefined, extra: Record<string, unknown> = {}) => ({
+  '@type': 'WebPage',
+  '@id': `${SITE.url}${path}#webpage`,
+  url: `${SITE.url}${path}`,
+  name,
+  ...(description ? { description } : {}),
+  isPartOf: { '@id': WEBSITE_ID },
+  ...(path === '/' ? {} : { breadcrumb: { '@id': `${SITE.url}${path}#breadcrumb` } }),
+  inLanguage: 'en-GB',
+  ...extra,
+});
+
+export const itemList = (items: { name: string; path: string }[]) => ({
+  '@type': 'ItemList',
+  itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.name, url: `${SITE.url}${it.path}` })),
+});
+
+/** Services page, mirroring the ProfessionalService node on magstags.com/seo-services/. */
+export const professionalService = (services: string[][]) => ({
+  '@type': 'ProfessionalService',
+  '@id': `${SITE.url}/services/#service`,
+  name: 'She Knows Digital SEO Consulting',
+  url: `${SITE.url}/services/`,
+  image: `${SITE.url}/logo-512.png`,
+  description:
+    'Senior, hands-on SEO consulting for enterprise eCommerce: technical audits, large-scale migrations, AI and full-SERP strategy, information architecture and organic growth advisory.',
+  areaServed: 'Worldwide',
+  founder: { '@id': PERSON_ID },
+  parentOrganization: { '@id': ORG_ID },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'SEO Consulting Services',
+    itemListElement: services.map(([name, , description]) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name, description, provider: { '@id': PERSON_ID } },
+    })),
+  },
 });

@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
 import Filters from '../../components/Filters.astro';
+import { itemList } from '../../lib/schema';
 import { getPosts, CATEGORIES } from '../../lib/site';
 import meta from '../../data/page-meta.json';
 
@@ -16,7 +17,7 @@ const { category } = Astro.params;
 const { posts } = Astro.props;
 const m = (meta as Record<string, { title: string; description: string }>)[`/category/${category}/`];
 ---
-<Base title={m.title} description={m.description || undefined} isPost>
+<Base title={m.title} description={m.description || undefined} isPost crumb={CATEGORIES[category]} trail={[['Field Notes', '/blog/']]} page={{ '@type': 'CollectionPage', mainEntity: itemList(posts.map((p) => ({ name: p.data.title, path: `/${p.id}/` }))) }}>
   <section class="intro-head">
     <p class="kicker"><a href="/blog/">Field notes</a></p>
     <h1>Blog Category: {CATEGORIES[category]}</h1>

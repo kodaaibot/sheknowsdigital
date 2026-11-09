@@ -6,6 +6,7 @@ import '@fontsource/manrope/500.css';
 import '@fontsource/manrope/600.css';
 import '../styles/global.css';
 import { SITE, NAV } from '../lib/site';
+import { webPage, breadcrumb, type Crumb } from '../lib/schema';
 
 interface Props {
   title: string;
@@ -17,18 +18,28 @@ interface Props {
   nav?: { href: string; label: string }[];
   /** Highlights Field Notes in the menu on posts and category pages. */
   isPost?: boolean;
+  /** Extra JSON-LD nodes for this page. */
   schema?: object[];
+  /** This page's name in the breadcrumb. Required for JSON-LD on every page except the homepage. */
+  crumb?: string;
+  /** Breadcrumb levels between Home and this page. */
+  trail?: Crumb[];
+  /** Extra properties for the WebPage node, including a more specific @type. */
+  page?: Record<string, unknown>;
 }
-const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, nav = NAV, isPost = false, schema = [] } = Astro.props;
+const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, nav = NAV, isPost = false, schema = [], crumb, trail = [], page = {} } = Astro.props;
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
 const canonical = new URL(path, SITE.url).href;
-// Each page passes its own nodes. The homepage carries the full Organization, Person and WebSite (see src/lib/schema.ts).
-const graph = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    ...schema,
-  ],
-};
+// Every indexable page gets a WebPage node and (except the homepage) a BreadcrumbList, plus whatever nodes the page adds.
+// See src/lib/schema.ts. Pages without a crumb name (the 404) carry no JSON-LD.
+const nodes = crumb || path === '/'
+  ? [
+      webPage(path, title, description, page),
+      ...(path === '/' ? [] : [breadcrumb(path, crumb!, trail)]),
+      ...schema,
+    ]
+  : [];
+const graph = { '@context': 'https://schema.org', '@graph': nodes };
 ---
 <!doctype html>
 <html lang="en-GB">
@@ -50,9 +61,13 @@ const graph = {
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
     <meta name="twitter:image" content={ogImage} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#24452f" />
     <link rel="alternate" type="application/rss+xml" title="She Knows Digital" href="/rss.xml" />
-    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(graph)} />}
+    {nodes.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(graph)} />}
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>

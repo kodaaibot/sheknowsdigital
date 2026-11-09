@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SERVICES } from '../lib/site';
+import { professionalService } from '../lib/schema';
 ---
-<Base title="SEO Consulting Services — sheknowsdigital" description="Technical audits, large-scale migrations, AI & full-SERP strategy, information architecture and organic growth advisory for enterprise eCommerce.">
+<Base title="SEO Consulting Services — sheknowsdigital" description="Technical audits, large-scale migrations, AI & full-SERP strategy, information architecture and organic growth advisory for enterprise eCommerce." crumb="Services" page={{ mainEntity: { '@id': 'https://www.sheknowsdigital.com/services/#service' } }} schema={[professionalService(SERVICES)]}>
   <section class="intro-head">
     <p class="kicker">Services</p>
     <h1>Five routes to the <em>summit</em>.</h1>

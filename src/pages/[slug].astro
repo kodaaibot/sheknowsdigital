@@ -18,32 +18,31 @@ const d = post.data;
 const { Content } = await render(post);
 const url = `${SITE.url}/${post.id}/`;
 const share = encodeURIComponent(url);
+// First image in the post body, used when there is no featured image.
+const firstImage = (post.body ?? '').match(/!\[[^\]]*\]\((\/[^)\s]+)\)/)?.[1];
+const image = `${SITE.url}${d.featuredImage || firstImage || '/logo-512.png'}`;
+// Keep the headline within 110 characters: cut at the last sentence end, or failing that the last word, that fits.
+const headline = d.title.length <= 110 ? d.title : (d.title.slice(0, 110).match(/^.*[.!?](?=\s)/)?.[0] ?? d.title.slice(0, 110).replace(/\s+\S*$/, ''));
 const schema = [
   {
     '@type': 'BlogPosting',
     '@id': `${url}#blogposting`,
-    headline: d.title,
-    description: d.description,
+    headline,
+    name: d.title,
+    ...(d.description ? { description: d.description } : {}),
+    image,
     datePublished: d.date.toISOString(),
     dateModified: (d.modified ?? d.date).toISOString(),
     inLanguage: 'en-GB',
-    mainEntityOfPage: url,
-    ...(d.featuredImage ? { image: SITE.url + d.featuredImage } : {}),
-    articleSection: d.categories.map((c) => CATEGORIES[c] ?? c).join(', '),
+    mainEntityOfPage: { '@id': `${url}#webpage` },
+    isPartOf: { '@id': WEBSITE_ID },
+    ...(d.categories.length ? { articleSection: d.categories.map((c) => CATEGORIES[c] ?? c).join(', ') } : {}),
     author: { '@type': 'Person', '@id': PERSON_ID, name: SITE.author, url: `${SITE.url}/about/` },
     publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'She Knows Digital', url: `${SITE.url}/` },
-    isPartOf: { '@id': WEBSITE_ID },
-  },
-  {
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE.url}/` },
-      { '@type': 'ListItem', position: 2, name: d.title, item: url },
-    ],
   },
 ];
 ---
-<Base title={d.titleTag ?? `${d.title} - ${SITE.name}`} description={d.description} ogImage={d.ogImage} ogType="article" schema={schema} isPost>
+<Base title={d.titleTag ?? `${d.title} - ${SITE.name}`} description={d.description} ogImage={d.ogImage} ogType="article" schema={schema} isPost crumb={d.title} trail={[['Field Notes', '/blog/']]} page={{ mainEntity: { '@id': `${url}#blogposting` }, primaryImageOfPage: image }}>
   <article>
     <header class="intro-head">
       <p class="kicker">{d.categories.map((c, i) => <>{i > 0 && ', '}<a href={`/category/${c}/`}>{CATEGORIES[c] ?? c}</a></>)}{d.categories.length > 0 && ' · '}<time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>

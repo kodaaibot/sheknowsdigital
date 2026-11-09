@@ -33,16 +33,23 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 Defined in `src/lib/schema.ts`, following the pattern on magstags.com.
 
 - The Person entity is `https://www.magstags.com/mags-sikora/#person`. It is the same @id on both sites: never mint a second Person @id on this domain. If the Person node changes on magstags.com, mirror the change in `schema.ts`.
-- Homepage: full `Organization` (`/#organization`), a short `Person` node and `WebSite` (`/#website`).
-- `/about/`: full `Person`, `BreadcrumbList` and `ProfilePage` whose `mainEntity` is the Person @id.
-- Posts: `BlogPosting` with `author` pointing at the Person @id and `publisher` at the Organization @id, plus `BreadcrumbList`.
-- Other pages carry no JSON-LD yet.
-- The Organization `logo` is the 190x32 wordmark from WordPress, which is below Google's 112x112 minimum. Replace it when a square logo exists.
+- Every page (except the 404) gets a `WebPage` node and, apart from the homepage, a `BreadcrumbList`. `src/layouts/Base.astro` builds both from the `crumb`, `trail` and `page` props.
+- Homepage: adds full `Organization` (`/#organization`, logo `/logo-512.png`), a short `Person` node and `WebSite` (`/#website`).
+- `/about/`: `ProfilePage` whose `mainEntity` is the Person @id, plus the full `Person`.
+- `/services/`: `ProfessionalService` with an `OfferCatalog` of the five services.
+- `/contact/`: `ContactPage`. `/blog/` and category pages: `CollectionPage` with an `ItemList` of posts.
+- Posts: `BlogPosting` (author = Person @id, publisher = Organization @id, headline capped at 110 characters, image = featured image, else first body image, else the logo). Breadcrumb is Home > Field Notes > post.
+- `npm run check:schema` validates all of this on the built pages and must report 0 failures.
+
+## Favicon
+
+`public/favicon.ico`, `favicon-96x96.png`, `icon-192.png`, `icon-512.png`, `apple-touch-icon.png` and `logo-512.png` are the "sk" monogram (Fraunces, cream s and clay italic k on forest green), generated Nov 2026.
 
 ## Commands
 
 - `npm run dev` : local dev server
 - `npm run build` : build to `dist/`
+- `npm run check:schema` : after a build, validates the JSON-LD on every page.
 - `npm run check:parity` : after a build, compares every URL's title, meta description, canonical, robots and H1 count with `content/inventory.csv`, checks every internal link and image resolves, and checks the sitemap. Must report 0 failures before any deploy.
 
 ## Repo layout
