@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import Landing from '../components/Landing.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/seo-checklist-blog-post-writing/'];
+---
+<Base title={m.title} description={m.description}>
+  <Landing heading="Your SEO Checklist" lead="Attract new leads with every post you write." formName="seo-checklist" button="subscribe & download" strict
+    cover="/2024/01/Screenshot-2024-01-22-at-10.44.14.png" coverAlt="Preview of the SEO checklist: how to write blog posts that Google and readers will love"
+    photo="/2022/02/mags-sikora-ecommerce-seo-specialist-london.webp" closingCta="subscribe & download the SEO Checklist">
+    <Fragment slot="intro">
+      <p class="eyebrow">I'm Mags, your</p>
+      <h2>SEO Consultant</h2>
+      <p>I’m excited to help you <strong>attract the right audience</strong> to your site and <strong>speed up your growth</strong>.</p>
+      <p>In my last twenty years, I’ve collaborated with top brands like <strong>Expedia, Hotels.com, Emirates Holidays, Avis, and AutoTrader</strong>. These big names use complex SEO strategies, but guess what? There are simple steps you can take to start seeing free traffic from search engines too.</p>
+      <p>I’ve put together an SEO checklist with 4 key sections. It’s designed to help you write well-optimized blog posts that both your readers and Google will love!</p>
+      <p>Just follow these straightforward steps every time you write, and watch your website’s presence grow on Google. Ready to dive in?</p>
+    </Fragment>
+    <Fragment slot="imagine">every time you write...</Fragment>
+  </Landing>
+</Base>

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../lib/site';
+import meta from '../data/page-meta.json';
+const posts = await getPosts();
+const m = meta['/blog/'];
+---
+<Base title={m.title} description={m.description}>
+  <div class="page-banner"><h1>Your SEO Resources</h1></div>
+  <div class="wrap with-sidebar">
+    <div>{posts.map((post) => <PostCard post={post} />)}</div>
+    <Sidebar />
+  </div>
+</Base>

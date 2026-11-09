@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/cookie-policy/'];
+// The WordPress page has a heading and no body. Add the policy text here.
+---
+<Base title={m.title}>
+  <div class="wrap narrow" style="padding-top:64px"><h1>Cookie Policy</h1></div>
+</Base>

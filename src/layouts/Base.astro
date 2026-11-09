@@ -1,0 +1,84 @@
+---
+import '@fontsource/poppins/300.css';
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/700.css';
+import '../styles/global.css';
+import { SITE, NAV } from '../lib/site';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  schema?: object[];
+}
+const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, schema = [] } = Astro.props;
+const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
+const canonical = new URL(path, SITE.url).href;
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: 'She Knows Digital',
+      url: `${SITE.url}/`,
+      logo: SITE.defaultOgImage,
+    },
+    { '@type': 'WebSite', '@id': `${SITE.url}/#website`, url: `${SITE.url}/`, name: SITE.name, inLanguage: 'en-GB', publisher: { '@id': `${SITE.url}/#organization` } },
+    ...schema,
+  ],
+};
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow, noarchive' : 'max-image-preview:large'} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="She Knows Digital" href="/rss.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+  </head>
+  <body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+      <a class="logo" href="/">SHE <span>KNOWS</span> DIGITAL</a>
+      <nav aria-label="Main">
+        <ul>
+          {NAV.map((n) => (
+            <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+    <main id="content"><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p class="footer-title">About us</p>
+        <ul>
+          <li><a href="/contact/">Contact</a></li>
+          <li>Terms of Use</li>
+          <li>Privacy and Cookie Policy</li>
+          <li><a href="/disclaimer/">Disclaimer</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

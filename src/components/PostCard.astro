@@ -1,0 +1,15 @@
+---
+import { CATEGORIES, SITE, formatDate } from '../lib/site';
+const { post } = Astro.props;
+const d = post.data;
+---
+<article class="post-card">
+  {d.featuredImage && <a class="thumb" href={`/${post.id}/`} tabindex="-1" aria-hidden="true"><img src={d.featuredImage} alt={d.featuredImageAlt || ''} loading="lazy" /></a>}
+  <div class="body">
+    {d.categories.length > 0 && <p class="cat">{d.categories.map((c: string, i: number) => <>{i > 0 && ', '}<a href={`/category/${c}/`}>{CATEGORIES[c] ?? c}</a></>)}</p>}
+    <h2><a href={`/${post.id}/`}>{d.title}</a></h2>
+    {d.excerpt && <p>{d.excerpt}</p>}
+    <a class="more" href={`/${post.id}/`} aria-label={`Read more: ${d.title}`}>Read more »</a>
+  </div>
+  <div class="meta">{SITE.author} • <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></div>
+</article>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts, CATEGORIES } from '../../lib/site';
+import meta from '../../data/page-meta.json';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return Object.keys(CATEGORIES).map((category) => ({
+    params: { category },
+    props: { posts: posts.filter((p) => p.data.categories.includes(category)) },
+  }));
+}
+const { category } = Astro.params;
+const { posts } = Astro.props;
+const m = (meta as Record<string, { title: string; description: string }>)[`/category/${category}/`];
+---
+<Base title={m.title} description={m.description || undefined}>
+  <div class="page-banner"><h1>Blog Category: {CATEGORIES[category]}</h1></div>
+  <div class="wrap with-sidebar">
+    <div>{posts.map((post) => <PostCard post={post} />)}</div>
+    <Sidebar />
+  </div>
+</Base>

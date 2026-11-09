@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/'];
+const U = '/wp-content/uploads';
+const press = [
+  ['huff-post-uk-logo.png', 'Huff Post UK'], ['econsultancy-logo.png', 'Econsultancy'], ['marieclaire-logo.png', 'Marie Claire'],
+  ['clickz-logo.png', 'ClickZ'], ['semcamp-logo.png', 'SEM Camp'], ['degreefeeecareers-logo.png', 'Degree Free Careers'],
+];
+const services = [
+  ['SEO Strategy & Planning', 'All in one solution.', 'A number of services combined in a bundle, which results in a single report containing thorough keyword research, competitors analysis, website technical audit, then recommendations and SEO action plan.'],
+  ['Keyword & Market Research', 'I have the best (key)words!', 'It all begins with words typed into a search box. Let me help you find untapped, high-volume keywords that your customers search for.'],
+  ['Technical SEO + Audit', 'Let’s eat that frog!', 'Let’s understand how search engines crawl your site and identify hidden technical problems that send harming signals to search engines and then let’s fix it!'],
+  ['On Page SEO & IA', 'is like the foundation for a home…', 'Let’s understand how search engines Based on the thorough analysis of websites and analytics data I create a new information architecture plan and set up actions to achieve best possible organic search results.'],
+  ['Content Marketing', 'Google only loves you when everyone else loves you first', 'Boost your website with white hat content tactics that can help you earn those links and win organic traffic.'],
+  ['SEO Website Migration', 'Let’s make it a smooth move!', 'Any change to a website’s structure can damage search visibility and cause a loss in traffic. I have successfully managed SEO migration of NewLook.com (2m URLs!) and can help you too!'],
+];
+const brands = [
+  ['2022/02/eh-logo.webp', 'Emirates Holidays'], ['2022/02/exp-logo.webp', 'Expedia'], ['2022/02/htls-logo.webp', 'Hotels.com'], ['2022/02/tr-logo.webp', 'Travel Republic'],
+  ['2022/02/nl-logo-2.webp', 'New Look'], ['2022/02/nf-logo.webp', 'Netflights'], ['2021/12/logo-bookatable-300x183-1.webp', 'Bookatable'], ['2021/12/logo-cooler-300x183-1.webp', 'Cooler'],
+];
+---
+<Base title={m.title} description={m.description}>
+  <section class="wrap split hero">
+    <div>
+      <h1>Ecommerce SEO Consultant</h1>
+      <p class="aside">... and occasional gardener</p>
+      <p class="headline">Attract the right audience.</p>
+      <p class="headline"><em>Grow</em> faster.</p>
+      <p class="headline"><em>Organically</em>.</p>
+      <p class="cta">
+        <a class="btn" href="/contact/">contact &gt;</a>
+        <a class="btn ghost" href="/seo-checklist-blog-post-writing/">free resources &gt;&gt;&gt;</a>
+      </p>
+    </div>
+    <img src={U + '/2025/07/Mags-Sikora-SEO-Strategist-768x1024.webp'} alt="Mags Sikora SEO Strategist" width="768" height="1024" fetchpriority="high" />
+  </section>
+
+  <section class="wrap press logos" aria-label="As featured in">
+    {press.map(([f, alt]) => <img src={U + '/2021/12/' + f} alt={alt} loading="lazy" />)}
+  </section>
+
+  <section class="band-sand experience">
+    <div class="wrap split" style="gap:0">
+      <img src={U + '/2022/02/mags-sikora-ecommerce-seo-specialist-london-747x1024.webp'} alt="Mags Sikora, ecommerce SEO specialist, London" width="747" height="1024" loading="lazy" />
+      <div class="card">
+        <h2 class="eyebrow">SEO experience</h2>
+        <p class="big display">18+ years</p>
+        <ul>
+          <li>I’ve worked with many well established companies but also startups and solopreneurs to help them drive organic traffic to their sites.</li>
+          <li>The majority of those projects have consisted of large-scale technical audits, content strategy development, organic traffic strategy creation and support during website migrations.</li>
+          <li>I have also provided my SEO services to a number of new website developments and startup marketing launches.</li>
+          <li>And some of the agencies in London hire me on a consultancy basis when require additional SEO expertise.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-slate">
+    <p>Getting on the top of Google search results pages is challenging but it is also crucial if you want your business to be found online.</p>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow">Most popular</p>
+    <h2 class="display">SEO Services</h2>
+    <div class="services">
+      {services.map(([name, tag, text]) => (
+        <div class="service">
+          <img src={U + '/2021/12/SEO-strategy-and-planning-icon-sdk.png'} alt="" loading="lazy" />
+          <h3>{name}</h3>
+          <p class="tag">{tag}</p>
+          <p>{text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section" style="padding-top:0">
+    <p class="eyebrow">Some of the brands</p>
+    <h2 class="display">I've work with</h2>
+    <div class="brands">
+      {brands.map(([f, alt]) => <img src={U + '/' + f} alt={alt} loading="lazy" />)}
+    </div>
+  </section>
+
+  <section class="band-sand testimonial">
+    <h2 class="eyebrow">And this is what they say...</h2>
+    <blockquote>
+      <p>Working with Mags is a pleasure – she’s a real team player who’s passionate, committed, hard-working and cares deeply about her work. A true digital expert, she has her finger firmly on the pulse of developments and changes in the digital &amp; SEO landscape. Mags intrinsically understands digital channels and how to leverage them to can create real business value. It’s a pleasure to recommend her.</p>
+    </blockquote>
+    <cite>Mel Stoner</cite>
+    <small>Head of Marketing, EMEA at Expedia, Inc.</small>
+  </section>
+</Base>

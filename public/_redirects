@@ -1,0 +1,17 @@
+# Old WordPress URLs that have no page on the static site.
+/blog/page/*                 /blog/            301
+/blog/2/                     /blog/            301
+/blog/3/                     /blog/            301
+/blog/4/                     /blog/            301
+/category/:slug/page/*       /category/:slug/  301
+/category/uncategorized/*    /blog/            301
+/author/*                    /about/           301
+/feed/                       /rss.xml          301
+/comments/feed/              /rss.xml          301
+/category/:slug/feed/        /category/:slug/  301
+/:slug/feed/                 /:slug/           301
+/post-sitemap.xml            /sitemap.xml      301
+/page-sitemap.xml            /sitemap.xml      301
+/category-sitemap.xml        /sitemap.xml      301
+/wp-sitemap.xml              /sitemap.xml      301
+/sitemap.rss                 /rss.xml          301

@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/contact/'];
+---
+<Base title={m.title} description={m.description}>
+  <section class="wrap split contact">
+    <img src="/wp-content/uploads/2022/01/Mags-Sikora-SEO-Strategist.webp" alt="Mags Sikora SEO Strategist" width="683" height="1024" />
+    <div>
+      <p class="eyebrow" style="font-size:22px">Contact me</p>
+      <h1 class="display">Got a comment or a burning Q that can’t be Googled?</h1>
+      <p>Please note, due to the workload, I am currently unable to take new assignments.</p>
+      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <input type="text" name="name" placeholder="Name" aria-label="Name" autocomplete="name" />
+        <input type="email" name="email" placeholder="Email" aria-label="Email" autocomplete="email" required />
+        <textarea name="message" placeholder="Message" aria-label="Message"></textarea>
+        <p class="actions"><button class="btn" type="submit">Send &gt;</button></p>
+        <p class="form-note" role="status" hidden></p>
+      </form>
+    </div>
+  </section>
+  <script>
+    // Submit in place and show a confirmation. Without JavaScript the form still posts normally.
+    const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
+    const note = form?.querySelector<HTMLElement>('.form-note');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = new URLSearchParams(new FormData(form) as any).toString();
+      try {
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        note!.textContent = 'Thank you. Your message has been sent.';
+      } catch {
+        note!.textContent = 'Sorry, the message could not be sent. Please try again in a moment.';
+      }
+      note!.hidden = false;
+    });
+  </script>
+</Base>

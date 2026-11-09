@@ -1,0 +1,11 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/disclaimer/'];
+const entry = await getEntry('legal', 'disclaimer');
+const { Content } = await render(entry!);
+---
+<Base title={m.title} description={m.description} noindex>
+  <div class="wrap narrow prose" style="padding-top:64px"><Content /></div>
+</Base>

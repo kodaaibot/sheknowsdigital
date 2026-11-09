@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Landing from '../components/Landing.astro';
+import meta from '../data/page-meta.json';
+const m = meta['/seo-ebook/'];
+---
+<Base title={m.title} description={m.description}>
+  <Landing heading="Write Google friendly blog posts" lead="An easy to follow SEO guide for solopreneurs." formName="seo-ebook" button="Subscribe"
+    cover="/2021/12/sheknowsdigitalcourse150.png" coverAlt="SEO ebook cover"
+    photo="/2022/02/mags-sikora-ecommerce-seo-specialist-london-747x1024.webp" closingCta="subscribe & download the ebook">
+    <Fragment slot="intro">
+      <p class="eyebrow">I'm Mags, an</p>
+      <h2>SEO Consultant</h2>
+      <p>I am here to help you attract a relevant audience to your site so you can grow faster.</p>
+      <p>During the last decade, I’ve worked with many successful brands incl. <strong>Expedia, Hotels.com, Emirates Holidays, Avis</strong> or <strong>AutoTrader</strong>.</p>
+      <p>Although those companies apply complex SEO strategies, there are some simple tweaks you can make to start getting free visits from search engines.</p>
+      <p>In the ebook, you will find 4 easy steps to write a well-optimised blog post that your readers and Google will love!</p>
+      <p>Just follow this simple formula each time you write and improve your website’s chances of being found on Google.</p>
+    </Fragment>
+    <Fragment slot="imagine">every time you write</Fragment>
+  </Landing>
+</Base>
