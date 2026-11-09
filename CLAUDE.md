@@ -26,7 +26,7 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 - Home, About, Contact and Blog use the Lovable title tags and meta descriptions. The checklist page's meta description also changed. These five are the only deliberate metadata changes and are listed as `RETITLED` in `scripts/check-parity.mjs`.
 - Homepage section "04 / In the workshop" lists the tools Mags has built. Link targets, as Mags specified: `https://www.magstags.com/`, `https://www.invuai.com/` and `https://www.sendlikeapro.com/`. Use exactly these URLs wherever the three are linked.
 - Contact buttons say "Discuss your project" (header, hero, footer). The homepage health check button says "Take the SEO self-check", with the line "Check 11 SEO fundamentals and see your score as you go." If the number of checklist items on `/audit/` changes, update that line.
-- "What I led" sits directly under the logo strip, outside the first-screen block. Its copy is Mags' own, from the About trail.
+- Mags removed the "What I led" row under the logo strip (Nov 2026). Do not add it back.
 - The blog is an archive: `src/components/BlogNote.astro` tells readers that newer writing is on MagsTags, and links to `https://www.magstags.com/`.
 - Soya is Mags' cat (not "Soy"). The photo and its caption on the homepage are hers.
 - Autotrader must not appear anywhere on the site (Mags' instruction, Nov 2026). The homepage "Experience with" strip uses the brand logos from `public/wp-content/uploads/2022/02/`.

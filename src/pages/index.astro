@@ -9,12 +9,6 @@ const notes = [
   ['Cultivation', '6 min read', 'Deep roots: organic search as compounding cultivation', 'Growth hacks are annuals. Information architecture is a perennial. On planting for the next five seasons.'],
   ['Weather', '10 min read', 'Navigating AI Overviews without losing the trail', 'How eCommerce brands can stay visible as the results page reshapes itself under generative answers.'],
 ];
-// Proof under the logo strip. The copy is Mags' own, from the About page career trail.
-const led = [
-  ['Emirates Group', 'Group SEO Director', 'I led SEO across five brands and 40+ markets. At Emirates Holidays, non-brand organic traffic grew 101% in year two and a further 140% in year three.'],
-  ['New Look', 'Site migration', 'I led SEO for the fashion retailer’s site migration. Non-brand organic traffic for high-volume search terms rose 10% the following quarter.'],
-  ['Expedia Group', 'UK & Ireland, then global', 'I managed SEO for the UK and Ireland, then returned to lead SEO strategy for an Expedia brand across 15 countries and 12 languages.'],
-];
 // Logos already used on the WordPress site.
 const brands = [['exp-logo', 'Expedia'], ['nl-logo-2', 'New Look'], ['eh-logo', 'Emirates Holidays'], ['htls-logo', 'Hotels.com'], ['tr-logo', 'Travel Republic'], ['nf-logo', 'Netflights']];
 // [file, name, display size in px]. The files are 130px squares with different amounts of padding, so each gets its own size to look balanced.
@@ -66,20 +60,6 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
     </section>
     </div>
 
-    <section class="led">
-      <div class="container led-inner">
-        <p class="label muted">What I led</p>
-        <div class="led-items">
-          {led.map(([company, role, text]) => (
-            <div>
-              <p class="led-role">{role}</p>
-              <h2>{company}</h2>
-              <p>{text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
 
     <section class="container section intro">
       <div>
@@ -283,13 +263,6 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .check-copy > :global(svg) { margin-top: 4px; }
   .check h2 { margin-top: 8px; font-size: 30px; line-height: 36px; }
   .check-note { margin-top: 6px !important; font-size: 14px; line-height: 20px; color: var(--muted); }
-  .led { border-bottom: 1px solid var(--border); }
-  .led-inner { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding-block: 40px 44px; }
-  .led-inner > .label { padding-top: 2px; }
-  .led-items { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding-inline: 4%; }
-  .led-role { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--clay); }
-  .led-items h2 { margin-top: 8px; font-size: 24px; line-height: 1.3; }
-  .led-items p:last-child { margin-top: 10px; font-size: 14px; line-height: 1.625; color: var(--muted); }
 
   .notes-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
   .articles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: 40px; }
@@ -361,8 +334,6 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
     .service-body { padding-left: 36px; padding-right: 12px; }
     .check { flex-direction: column; align-items: flex-start; gap: 24px; padding-block: 36px; }
     .check h2 { font-size: 25px; }
-    .led-inner { grid-template-columns: 1fr; gap: 16px; padding-block: 32px; }
-    .led-items { grid-template-columns: 1fr; gap: 28px; padding-inline: 0; }
     .articles { grid-template-columns: 1fr; gap: 32px; }
     .personal-layout { grid-template-columns: 1fr; gap: 36px; }
     .soy { max-width: 250px; }
