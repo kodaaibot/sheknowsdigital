@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
 import Filters from '../../components/Filters.astro';
+import BlogNote from '../../components/BlogNote.astro';
 import { itemList } from '../../lib/schema';
 import { getPosts, CATEGORIES } from '../../lib/site';
 import meta from '../../data/page-meta.json';
@@ -23,6 +24,7 @@ const m = (meta as Record<string, { title: string; description: string }>)[`/cat
     <h1>Blog Category: {CATEGORIES[category]}</h1>
   </section>
   <div class="w-6xl">
+    <BlogNote />
     <Filters current={category} />
     <div class="grid-2 notes">{posts.map((post) => <PostCard post={post} />)}</div>
   </div>
