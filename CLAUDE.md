@@ -14,7 +14,7 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 
 ## Design
 
-Branch `theme-refresh` carries the design Mags chose: her Lovable "sheknowsdigital" project (Fraunces display type, Manrope text, warm paper ground, forest green, clay accent). `main` still holds the faithful port of the old WordPress look.
+`main` carries the design Mags chose: her Lovable "sheknowsdigital" project (Fraunces display type, Manrope text, warm paper ground, forest green, clay accent), merged from `theme-refresh` on 2026-11-09. The faithful port of the old WordPress look is preserved at commit `b62eec2`.
 
 - `/` (`src/pages/index.astro`) is a like-for-like rebuild of the Lovable homepage, copy included. Its three "field notes" cards are the design's placeholder articles and are not links: those articles are not written yet.
 - `/services/` and `/audit/` (interactive health check, weights and score bands copied from the design) are new pages that did not exist on WordPress.
