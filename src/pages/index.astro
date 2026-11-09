@@ -142,7 +142,7 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
           <h2 class="heading mt20">I build the tools, <em class="clay">too.</em></h2>
         </div>
       </div>
-      <p class="lede">When the tool I need doesn’t exist, I make it. Most began as shortcuts for my own audits. You’ll find the SEO ones at <a class="inline" href="https://www.magstags.com/" rel="noopener">magstags.com</a>.</p>
+      <p class="lede">When the tool I need doesn’t exist, I make it. Most began as shortcuts for my own audits.</p>
       <div class="tools">
         {tools.map(([kind, name, text, href]) => (
           <article>
@@ -265,7 +265,6 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .personal-layout { display: grid; grid-template-columns: 280px 1fr 220px; align-items: center; gap: 64px; }
   .soy { align-self: end; }
   .soy img { aspect-ratio: 3 / 4 !important; border-radius: 4px; }
-  .inline { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
   .tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; margin-top: 40px; }
   .tools article { border-top: 1px solid var(--border); padding-top: 20px; }
   .tools .kind { font-size: 12px; line-height: 16px; }
