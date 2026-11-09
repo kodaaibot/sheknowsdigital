@@ -20,7 +20,9 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 - `/services/` and `/audit/` (interactive health check, weights and score bands copied from the design) are new pages that did not exist on WordPress.
 - `/about/` and `/contact/` use the Lovable pages. `/about/` also keeps the original WordPress story under "How it started" so no content is lost.
 - `/blog/` is "Field Notes": the Lovable layout filled with the 24 real posts, with the real categories as filter links.
-- Home, About, Contact and Blog use the Lovable title tags and meta descriptions. These four are the only deliberate metadata changes and are listed as `RETITLED` in `scripts/check-parity.mjs`.
+- Home, About, Contact and Blog use the Lovable title tags and meta descriptions. The checklist page's meta description also changed. These five are the only deliberate metadata changes and are listed as `RETITLED` in `scripts/check-parity.mjs`.
+- Autotrader must not appear anywhere on the site (Mags' instruction, Nov 2026). The homepage "Experience with" strip uses the brand logos from `public/wp-content/uploads/2022/02/`.
+- The About page career trail is Mags' own copy. Do not rewrite it.
 - Design tokens are at the top of `src/styles/global.css`.
 
 ## Commands

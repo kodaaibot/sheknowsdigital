@@ -15,7 +15,8 @@ const inv = lines.map((l) => Object.fromEntries(csv(l).map((v, i) => [header[i],
 
 // Deliberate changes that came with the new design (Nov 2026). Everything else must match WordPress.
 const NEW_PAGES = ['/services/', '/audit/'];
-const RETITLED = ['/', '/about/', '/contact/', '/blog/'];
+// The checklist page keeps its title; only its meta description changed (Autotrader removed).
+const RETITLED = ['/', '/about/', '/contact/', '/blog/', '/seo-checklist-blog-post-writing/'];
 
 const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
 let fail = 0;
