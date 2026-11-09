@@ -1,9 +1,10 @@
 ---
 // Newsletter + lead magnet signup. Netlify Forms captures the submission, then sends the visitor to /thank-you/.
+// Spam protection: Netlify's reCAPTCHA widget (injected into .captcha at deploy time) plus a honeypot field.
 interface Props { name: string; button: string; consentRequired?: boolean; nameRequired?: boolean }
 const { name, button, consentRequired = false, nameRequired = false } = Astro.props;
 ---
-<form class="form" id="subscribe" name={name} method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field">
+<form class="form" id="subscribe" name={name} method="POST" action="/thank-you/" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
   <input type="hidden" name="form-name" value={name} />
   <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
   <input type="text" name="name" placeholder="Name" aria-label="Name" autocomplete="name" required={nameRequired} />
@@ -12,5 +13,6 @@ const { name, button, consentRequired = false, nameRequired = false } = Astro.pr
     <input type="checkbox" name="newsletter-consent" value="yes" required={consentRequired} />
     <span>Yes, subscribe me to the newsletter to receive emails, offers and freebies from She Knows Digital</span>
   </label>
+  <div class="captcha" data-netlify-recaptcha="true"></div>
   <p class="actions"><button class="btn" type="submit">{button}</button></p>
 </form>

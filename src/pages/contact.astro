@@ -9,7 +9,7 @@ import { SERVICES } from '../lib/site';
     <p class="lead">Share a little about your site and goals. I reply within two working days — usually sooner, unless I'm on a summit.</p>
   </section>
   <div class="w-3xl">
-    <form class="grid-2" style="gap:20px" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <form class="grid-2" style="gap:20px" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
       <p class="hp" style="position:absolute;left:-9999px"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
       <label class="field">Name<input type="text" name="name" autocomplete="name" required /></label>
@@ -26,6 +26,7 @@ import { SERVICES } from '../lib/site';
         </select>
       </label>
       <label class="field span-2">Tell me about the terrain<textarea name="message" rows="5" required></textarea></label>
+      <div class="captcha span-2" data-netlify-recaptcha="true"></div>
       <button class="pill-primary" type="submit">Send enquiry</button>
       <p class="form-note span-2" role="status" hidden></p>
     </form>
@@ -41,9 +42,10 @@ import { SERVICES } from '../lib/site';
         const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
         if (!res.ok) throw new Error(String(res.status));
         form.reset();
+        (window as any).grecaptcha?.reset();
         note!.textContent = 'Thank you. Your enquiry has been sent.';
       } catch {
-        note!.textContent = 'Sorry, the enquiry could not be sent. Please try again in a moment.';
+        note!.textContent = 'The enquiry could not be sent. Please tick the “I’m not a robot” box and try again.';
       }
       note!.hidden = false;
     });

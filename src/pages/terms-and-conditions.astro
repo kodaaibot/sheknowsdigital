@@ -1,0 +1,9 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+const entry = await getEntry('legal', 'terms-and-conditions');
+const { Content } = await render(entry!);
+---
+<Base title="Terms and Conditions — sheknowsdigital" description="The terms that apply when you use www.sheknowsdigital.com, its articles, downloads and SEO health check.">
+  <div class="post-body"><div class="narrow prose"><Content /></div></div>
+</Base>

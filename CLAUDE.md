@@ -10,7 +10,10 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 - Open before launch:
   - Eight 2015-16 posts are marked `needsContent: true`. On WordPress they render an old homepage layout instead of the article, so only the excerpt could be exported. The full text needs recovering (WordPress admin export or revisions) and pasting into the Markdown files.
   - The checklist and ebook forms only collect signups in Netlify. Nothing emails the subscriber or delivers the PDF until an email tool is connected, although `/thank-you/` tells people to check their inbox.
-  - `/cookie-policy/` has a heading and no body, as on WordPress. Footer items "Terms of Use" and "Privacy and Cookie Policy" are unlinked, as on WordPress.
+  - `/cookie-policy/` has a heading and no body, as on WordPress, and there is no privacy policy page although the forms collect names and emails.
+  - `/terms-and-conditions/` was drafted on 2026-11-09 and has not had legal review.
+  - Netlify dashboard settings that cannot be set from the repo: form detection must be enabled, and the email notification for form submissions must be added under Forms.
+- Forms use Netlify's reCAPTCHA (`data-netlify-recaptcha`) plus a honeypot field.
 
 ## Design
 

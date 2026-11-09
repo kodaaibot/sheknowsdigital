@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getPosts, SITE, CATEGORIES } from '../lib/site';
 
-// The WordPress URL set plus the two new pages (/services/, /audit/). /disclaimer/ is noindex and stays out.
-const PAGES = ['/', '/services/', '/audit/', '/about/', '/blog/', '/contact/', '/cookie-policy/', '/seo-checklist-blog-post-writing/', '/seo-ebook/', '/thank-you/'];
+// The WordPress URL set plus the new pages (/services/, /audit/, /terms-and-conditions/). /disclaimer/ is noindex and stays out.
+const PAGES = ['/', '/services/', '/audit/', '/terms-and-conditions/', '/about/', '/blog/', '/contact/', '/cookie-policy/', '/seo-checklist-blog-post-writing/', '/seo-ebook/', '/thank-you/'];
 
 export const GET: APIRoute = async () => {
   const posts = await getPosts();

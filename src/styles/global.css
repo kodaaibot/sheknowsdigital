@@ -40,6 +40,7 @@ p { margin: 0 0 1em; }
 .logo { font-family: var(--display); font-size: 20px; line-height: 28px; color: var(--fg); }
 .logo span { font-style: italic; color: var(--clay); }
 .logo:hover { text-decoration: none; }
+.site-header nav { margin-left: auto; margin-right: 12px; }
 .site-header nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
 .site-header nav a { color: var(--muted); font-size: 14px; line-height: 20px; }
 .site-header nav a:hover, .site-header nav a[aria-current] { color: var(--fg); text-decoration: none; }
@@ -68,6 +69,7 @@ p { margin: 0 0 1em; }
 .form .actions { margin: 4px 0 0; }
 .form .actions .btn { width: 100%; background: var(--primary); color: var(--on-primary); font-size: 16px; }
 .form .hp { position: absolute; left: -9999px; }
+.captcha { min-height: 78px; }
 .form-note { font-size: 14px; margin: 0; }
 
 /* Bands */
