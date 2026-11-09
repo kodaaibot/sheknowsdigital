@@ -1,48 +1,122 @@
 ---
-// Shared layout for the two lead magnet pages (SEO checklist and SEO ebook).
+// Shared layout for the two lead magnet pages (/seo-checklist-blog-post-writing/ and /seo-ebook/).
+// Both offer the same four-step material; only the wording, cover and form differ.
 import SubscribeForm from './SubscribeForm.astro';
-interface Props { heading: string; lead: string; formName: string; button: string; cover: string; coverAlt: string; photo: string; closingCta: string; strict?: boolean }
-const { heading, lead, formName, button, cover, coverAlt, photo, closingCta, strict = false } = Astro.props;
-const U = '/wp-content/uploads';
-const brands = [['logo-expedia-300x183-1.webp', 'Expedia'], ['logo-hotels-300x183-1.webp', 'Hotels.com'], ['logo-newlook-300x183-1.webp', 'New Look'], ['logo-bookatable-300x183-1.webp', 'Bookatable'], ['logo-cooler-300x183-1.webp', 'Cooler'], ['rideuk-bmx-300x183-1.webp', 'Ride UK BMX']];
+interface Props {
+  kicker: string; lead: string; formName: string; button: string; strict?: boolean;
+  cover: string; coverAlt: string; closingCta: string;
+}
+const { kicker, lead, formName, button, strict = false, cover, coverAlt, closingCta } = Astro.props;
+
+// The four sections of the checklist, summarised from the downloadable PDF.
+const steps = [
+  ['Plan', 'Know who you are writing for and what they are searching for, then pick a topic, a primary keyword and its close relatives before you write a word.'],
+  ['Write', 'Short paragraphs, the keyword early, a few internal links and one or two to trusted sources. Finish with a clear next step for the reader.'],
+  ['Optimise', 'A short URL, a meta title and description that earn the click, headings that summarise each section, and light, well-described images.'],
+  ['Promote', 'Give the post a push: share it, mention it to the people you cite, add it to your email signature and pitch related guest posts.'],
+];
 ---
-<section class="landing-hero">
-  <div class="split">
-    <div>
-      <h1>{heading}</h1>
-      <p class="lead">{lead}</p>
-      <SubscribeForm name={formName} button={button} consentRequired={strict} nameRequired={strict} />
-    </div>
-    <img class="cover" src={U + cover} alt={coverAlt} />
+  <div class="eb">
+    <section class="eb-hero">
+      <div class="eb-wrap eb-hero-grid">
+        <div class="eb-copy">
+          <p class="eb-kicker">{kicker}</p>
+          <h1><slot name="heading" /></h1>
+          <p class="eb-lead">{lead}</p>
+          <div class="eb-form">
+            <SubscribeForm name={formName} button={button} consentRequired={strict} nameRequired={strict} />
+            <p class="eb-small">Free. Unsubscribe from the newsletter any time.</p>
+          </div>
+        </div>
+        <figure class="eb-book">
+          <img src={cover} alt={coverAlt} width="900" height="1200" fetchpriority="high" />
+        </figure>
+      </div>
+    </section>
+
+    <section class="eb-wrap eb-section">
+      <div class="eb-head">
+        <p class="eb-label">What’s inside</p>
+        <h2>Four steps, in the order you need them.</h2>
+      </div>
+      <ol class="eb-steps">
+        {steps.map(([name, text], i) => (
+          <li>
+            <span class="eb-num">0{i + 1}</span>
+            <h3>{name}</h3>
+            <p>{text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="eb-author">
+      <div class="eb-wrap eb-author-grid">
+        <img src="/wp-content/uploads/2022/01/mags-sikora-SEO-expert-london.webp" alt="Mags Sikora" width="640" height="640" loading="lazy" />
+        <div>
+          <p class="eb-label">Written by</p>
+          <h2>Mags Sikora</h2>
+          <p>I’ve spent two decades in SEO, working with brands including Expedia, Hotels.com, Emirates Holidays and New Look.</p>
+          <p>Big brands use complex strategies, but the fundamentals that get a page found are the same for a one-person blog. This checklist is those fundamentals, in the order you need them.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="eb-wrap eb-close flush-footer">
+      <h2>Give Google <em>a good reason</em> to rank you.</h2>
+      <a class="eb-cta" href="#subscribe">{closingCta}</a>
+    </section>
   </div>
-</section>
-<section class="section split intro">
-  <div>
-    <slot name="intro" />
-  </div>
-  <img src={U + photo} alt="Mags Sikora, ecommerce SEO specialist, London" loading="lazy" />
-</section>
-<section class="wrap">
-  <h2 class="subhead">Some of the brands I've worked with</h2>
-  <div class="brands" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
-    {brands.map(([f, alt]) => <div><img src={U + '/2021/12/' + f} alt={alt} loading="lazy" /></div>)}
-  </div>
-</section>
-<section class="section band-primary" style="margin-top:96px"><p class="stat">61% of users start an online search from the search engine. 95% of them will never go to the 2nd Google page. Fact.</p></section>
-<section class="section split">
-  <img src={U + '/2022/02/mags-sikora-writing-an-ebook.webp'} alt="Mags Sikora writing on a laptop" loading="lazy" />
-  <div>
-    <p class="eyebrow">Imagine that</p>
-    <h2 class="display"><slot name="imagine" /></h2>
-    <ul class="ruled">
-      <li>You have a clear process in mind to make your blog post Google friendly!</li>
-      <li>You increase chances to rank your posts higher in Google! The higher your posts rank for relevant terms, the more targetted traffic you get and the more leads it generates!</li>
-      <li>You understand better how Google sees your posts.</li>
-      <li>The saved time, you can spend on other revenue-generating activities</li>
-    </ul>
-  </div>
-</section>
-<section class="section band-secondary closing">
-  <p>Give Google <span>a good reason</span> to rank you on their 1st page!</p>
-  <a class="btn" href="#subscribe">{closingCta}</a>
-</section>
+<style>
+  .eb { --gap: clamp(32px, 6vw, 96px); }
+  .eb-wrap { max-width: 1152px; margin: 0 auto; padding-inline: max(24px, env(safe-area-inset-left, 0px)); }
+  .eb h1, .eb h2, .eb h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+  .eb em { font-style: italic; color: var(--clay); }
+  .eb-label, .eb-kicker { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--clay); margin: 0; }
+
+  .eb-hero { padding-block: clamp(48px, 8vw, 96px); border-bottom: 1px solid var(--border); }
+  .eb-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--gap); align-items: center; }
+  /* The heading comes in through a slot, so its inner elements need :global() to pick up these styles. */
+  .eb-copy h1 :global(em) { font-style: italic; color: var(--clay); }
+  .eb-copy h1 :global(.nowrap) { white-space: nowrap; }
+  .eb-copy h1 { margin-top: 18px; font-size: clamp(44px, 5.6vw, 72px); line-height: 1.04; color: var(--primary); }
+  .eb-lead { margin: 22px 0 0; max-width: 34rem; font-size: 18px; line-height: 1.65; color: var(--muted); }
+  .eb-form { margin-top: 32px; max-width: 30rem; border: 1px solid var(--border); background: var(--card); padding: 24px; }
+  .eb-small { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
+
+  /* The cover shown as a physical book: soft shadow, a spine shade on the left edge and a slight tilt. */
+  .eb-book { margin: 0; justify-self: center; width: min(100%, 400px); position: relative; transform: rotate(2deg); }
+  .eb-book img { width: 100%; height: auto; border-radius: 3px 8px 8px 3px; box-shadow: 0 2px 4px rgba(20, 30, 20, .12), 0 24px 48px -12px rgba(20, 40, 25, .45); }
+  .eb-book::after { content: ''; position: absolute; inset: 0 auto 0 0; width: 18px; border-radius: 3px 0 0 3px; background: linear-gradient(90deg, rgba(0, 0, 0, .28), rgba(255, 255, 255, .08) 55%, transparent); pointer-events: none; }
+
+  .eb-section { padding-block: clamp(56px, 8vw, 96px); }
+  .eb-head h2 { margin-top: 14px; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.15; max-width: 24ch; }
+  .eb-steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .eb-steps li { border-top: 1px solid var(--border); padding-top: 20px; }
+  .eb-num { font-family: var(--display); font-style: italic; font-size: 28px; color: var(--clay); }
+  .eb-steps h3 { margin-top: 10px; font-size: 26px; }
+  .eb-steps p { margin: 12px 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
+
+  .eb-author { background: var(--secondary); border-block: 1px solid var(--border); padding-block: clamp(56px, 8vw, 88px); }
+  .eb-author-grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--gap); align-items: center; }
+  .eb-author img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 50%; }
+  .eb-author h2 { margin-top: 12px; font-size: clamp(30px, 3.4vw, 40px); }
+  .eb-author p:not(.eb-label) { margin: 14px 0 0; max-width: 40rem; font-size: 16px; line-height: 1.7; color: var(--muted); }
+
+  .eb-close { text-align: center; padding-block: clamp(64px, 9vw, 112px); }
+  .eb-close h2 { font-size: clamp(34px, 4.6vw, 56px); line-height: 1.1; color: var(--primary); }
+  .eb-cta { display: inline-block; margin-top: 32px; background: var(--primary); color: var(--on-primary); padding: 14px 28px; font-weight: 500; }
+  .eb-cta:hover { opacity: .9; text-decoration: none; }
+
+  @media (max-width: 900px) {
+    .eb-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
+  }
+  @media (max-width: 760px) {
+    .eb-hero-grid { grid-template-columns: 1fr; }
+    .eb-book { order: -1; width: min(70%, 280px); }
+    .eb-form { padding: 20px; }
+    .eb-steps { grid-template-columns: 1fr; }
+    .eb-author-grid { grid-template-columns: 1fr; gap: 24px; }
+    .eb-author img { width: 140px; }
+  }
+</style>
