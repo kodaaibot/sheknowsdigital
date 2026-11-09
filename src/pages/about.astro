@@ -1,16 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-// Career history, most recent first. Source: Mags' LinkedIn profile (Nov 2026).
-// Intrepid's client names are deliberately left out: agency clients stay off this site.
+// Career trail: copy supplied by Mags (Nov 2026).
 const trail = [
-  ['Intrepid Digital', 'Director, SEO · 2020 to present', 'Leading SEO for enterprise eCommerce, travel and marketplace brands at the agency I co-founded.'],
-  ['She Knows Digital', 'SEO Strategist · 2012 to present', 'My own consultancy: audits, migrations, penalty recovery and training for brands including Expedia, Emirates Group, New Look, Venere, Marie Chantal and Bookatable.'],
-  ['Emirates Group', 'Group SEO Director · 2017 to 2021', 'Group SEO strategy across five brands and 40+ markets. Non-brand SEO traffic for Emirates Holidays grew 101% year on year in year two and 140% in year three. Information architecture and site migrations for Netflights, Travelbag and Travel Republic.'],
-  ['PERIODBOX', 'Founder · 2014 to 2016', 'Built and launched a subscription eCommerce business, won coverage in Marie Claire and the Huffington Post, then sold it.'],
-  ['New Look', 'Digital Marketing Manager · 2013 to 2014', 'Led the SEO migration of the New Look platform, ending the following quarter 10% up on non-brand traffic. Ran acquisition across SEO, PPC, affiliates and display.'],
-  ['Expedia Group', 'Senior SEO Manager, UK & IE · 2011 to 2012', 'SEO strategy and delivery for the UK and Ireland sites. Returned in 2016 as Global SEO Manager for one of the group brands, covering 15 countries and 12 languages.'],
-  ['Factory Media', 'Group SEO Manager · 2010 to 2011', 'SEO across a network of 22 websites, including the launch of six international sites.'],
-  ['Tradedoubler', 'SEO Consultant · 2009 to 2010', 'SEO consultancy for clients ranging from five-star hotel chains to international automotive sites.'],
+  ['Intrepid Digital', 'As SEO Director, I’ve worked with clients including SKIMS, Skyscanner and AWS.'],
+  ['Emirates Group', 'I led SEO across five brands and 40+ markets. At Emirates Holidays, non-brand organic traffic grew 101% in year two and a further 140% in year three.'],
+  ['Expedia Group', 'I managed SEO for the UK and Ireland, then returned to lead SEO strategy for an Expedia brand across 15 countries and 12 languages.'],
+  ['New Look', 'I led SEO for the fashion retailer’s site migration. Non-brand organic traffic for high-volume search terms rose 10% the following quarter.'],
 ];
 const traits = [
   ['Mountains', 'Long ridges teach patience and planning. So do migrations.'],
@@ -33,7 +28,7 @@ const traits = [
     <div>
       <h2 style="font-size:30px;line-height:36px;margin:0">The trail so far</h2>
       <ol class="timeline">
-        {trail.map(([name, role, text]) => <li><h3>{name}</h3><p class="role">{role}</p><p>{text}</p></li>)}
+        {trail.map(([name, text]) => <li><h3>{name}</h3><p>{text}</p></li>)}
       </ol>
     </div>
   </section>
