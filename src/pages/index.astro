@@ -2,6 +2,7 @@
 // Homepage, rebuilt like for like from the Lovable sheknowsdigital design.
 import Base from '../layouts/Base.astro';
 import { SERVICES as services } from '../lib/site';
+import { organization, personStub, website } from '../lib/schema';
 
 const notes = [
   ['Expeditions', '8 min read', 'Why every replatform is a mountain expedition', 'Acclimatise, pack redundancy, and never summit on a Friday. Lessons from a decade of enterprise migrations.'],
@@ -14,7 +15,7 @@ const press = [['econsultancy-logo', 'eConsultancy'], ['marieclaire-logo', 'Mari
 const arrow = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>';
 const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"></path><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"></path><path d="M5 21h14"></path>';
 ---
-<Base title="Mags Sikora — Senior eCommerce SEO Consultant | sheknowsdigital" description="18+ years of enterprise eCommerce SEO for Expedia, New Look, Emirates Group and Hotels.com. Technical audits, migrations, AI & full-SERP strategy.">
+<Base title="Mags Sikora — Senior eCommerce SEO Consultant | sheknowsdigital" description="18+ years of enterprise eCommerce SEO for Expedia, New Look, Emirates Group and Hotels.com. Technical audits, migrations, AI & full-SERP strategy." schema={[organization, personStub, website]}>
   <div class="he">
     <section class="cover">
       <div class="cover-inner">

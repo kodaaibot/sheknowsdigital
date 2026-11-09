@@ -1,5 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+import { person, breadcrumb, PERSON_ID, WEBSITE_ID } from '../lib/schema';
+
+const title = 'About Mags Sikora — sheknowsdigital';
+const description = '18+ years of enterprise eCommerce SEO. Nature lover, gardener, mountain hiker and cat person.';
+// Same pattern as magstags.com/mags-sikora/: Person + BreadcrumbList + ProfilePage, all pointing at the one Person @id.
+const schema = [
+  person,
+  breadcrumb('/about/', 'About'),
+  {
+    '@type': 'ProfilePage',
+    '@id': `${SITE.url}/about/#webpage`,
+    url: `${SITE.url}/about/`,
+    name: title,
+    description,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': PERSON_ID },
+    mainEntity: { '@id': PERSON_ID },
+    breadcrumb: { '@id': `${SITE.url}/about/#breadcrumb` },
+    primaryImageOfPage: `${SITE.url}/images/home/mags-sikora-about.webp`,
+    inLanguage: 'en-GB',
+  },
+];
 // Career trail: copy supplied by Mags (Nov 2026).
 const trail = [
   ['Intrepid Digital', 'As SEO Director, I’ve worked with clients including SKIMS, Skyscanner and AWS.'],
@@ -14,7 +37,7 @@ const traits = [
   ['Nature', 'Ecosystems over hacks. Everything is connected.'],
 ];
 ---
-<Base title="About Mags Sikora — sheknowsdigital" description="18+ years of enterprise eCommerce SEO. Nature lover, gardener, mountain hiker and cat person.">
+<Base title={title} description={description} schema={schema}>
   <section class="intro-head">
     <p class="kicker">About</p>
     <h1>Hi, I'm Mags. I've been <em>tending search</em> for 18 years.</h1>

@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import { getPosts, SITE, CATEGORIES, formatDate } from '../lib/site';
+import { ORG_ID, PERSON_ID, WEBSITE_ID } from '../lib/schema';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -29,8 +30,9 @@ const schema = [
     mainEntityOfPage: url,
     ...(d.featuredImage ? { image: SITE.url + d.featuredImage } : {}),
     articleSection: d.categories.map((c) => CATEGORIES[c] ?? c).join(', '),
-    author: { '@type': 'Person', name: SITE.author, url: `${SITE.url}/about/` },
-    publisher: { '@id': `${SITE.url}/#organization` },
+    author: { '@type': 'Person', '@id': PERSON_ID, name: SITE.author, url: `${SITE.url}/about/` },
+    publisher: { '@type': 'Organization', '@id': ORG_ID, name: 'She Knows Digital', url: `${SITE.url}/` },
+    isPartOf: { '@id': WEBSITE_ID },
   },
   {
     '@type': 'BreadcrumbList',

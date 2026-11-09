@@ -25,6 +25,17 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 - The About page career trail is Mags' own copy. Do not rewrite it.
 - Design tokens are at the top of `src/styles/global.css`.
 
+## Structured data
+
+Defined in `src/lib/schema.ts`, following the pattern on magstags.com.
+
+- The Person entity is `https://www.magstags.com/mags-sikora/#person`. It is the same @id on both sites: never mint a second Person @id on this domain. If the Person node changes on magstags.com, mirror the change in `schema.ts`.
+- Homepage: full `Organization` (`/#organization`), a short `Person` node and `WebSite` (`/#website`).
+- `/about/`: full `Person`, `BreadcrumbList` and `ProfilePage` whose `mainEntity` is the Person @id.
+- Posts: `BlogPosting` with `author` pointing at the Person @id and `publisher` at the Organization @id, plus `BreadcrumbList`.
+- Other pages carry no JSON-LD yet.
+- The Organization `logo` is the 190x32 wordmark from WordPress, which is below Google's 112x112 minimum. Replace it when a square logo exists.
+
 ## Commands
 
 - `npm run dev` : local dev server

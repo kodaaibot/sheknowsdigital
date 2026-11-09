@@ -22,17 +22,10 @@ interface Props {
 const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, nav = NAV, isPost = false, schema = [] } = Astro.props;
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
 const canonical = new URL(path, SITE.url).href;
+// Each page passes its own nodes. The homepage carries the full Organization, Person and WebSite (see src/lib/schema.ts).
 const graph = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE.url}/#organization`,
-      name: 'She Knows Digital',
-      url: `${SITE.url}/`,
-      logo: SITE.defaultOgImage,
-    },
-    { '@type': 'WebSite', '@id': `${SITE.url}/#website`, url: `${SITE.url}/`, name: SITE.name, inLanguage: 'en-GB', publisher: { '@id': `${SITE.url}/#organization` } },
     ...schema,
   ],
 };
@@ -59,7 +52,7 @@ const graph = {
     <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="She Knows Digital" href="/rss.xml" />
-    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    {schema.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(graph)} />}
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
