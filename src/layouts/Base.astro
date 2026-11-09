@@ -122,8 +122,33 @@ const graph = { '@context': 'https://schema.org', '@graph': nodes };
           <li><a href="/terms-and-conditions/">Terms &amp; Conditions</a></li>
           <li><a href="/disclaimer/">Disclaimer</a></li>
           <li><a href="/cookie-policy/">Cookie Policy</a></li>
+          <li><button type="button" class="linklike" data-cookie-settings>Cookie settings</button></li>
         </ul>
       </div>
     </footer>
+    <script is:inline>
+      // Cookie consent loads only after the page has fully loaded, in idle time, so it never delays rendering.
+      // Clicks on "Cookie settings" or "Allow embedded content" before then load it straight away.
+      (function () {
+        var s;
+        function load(intent) {
+          if (window.skdConsent) { if (intent) window.skdConsent[intent](); return; }
+          if (s) { if (intent) s.setAttribute('data-intent', intent); return; }
+          s = document.createElement('script');
+          s.src = '/consent.js';
+          s.async = true;
+          if (intent) s.setAttribute('data-intent', intent);
+          document.body.appendChild(s);
+        }
+        function idle() { (window.requestIdleCallback || function (f) { setTimeout(f, 1); })(function () { load(); }); }
+        if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+        document.addEventListener('click', function (e) {
+          var t = e.target.closest && e.target.closest('[data-cookie-settings],[data-consent-load]');
+          if (!t || window.skdConsent) return;
+          e.preventDefault();
+          load(t.hasAttribute('data-consent-load') ? 'allowEmbeds' : 'open');
+        });
+      })();
+    </script>
   </body>
 </html>

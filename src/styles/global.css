@@ -72,7 +72,19 @@ main:has(.flush-footer) + .site-footer { margin-top: 0; }
 .site-footer .base { max-width: var(--max); margin: 0 auto; padding: 20px 24px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 32px; border-top: 1px solid color-mix(in oklab, var(--on-primary) 18%, transparent); font-size: 13px; }
 .site-footer .base p { margin: 0; opacity: .65; }
 .site-footer .base ul { display: flex; flex-wrap: wrap; gap: 6px 24px; }
-.site-footer .base a { opacity: .75; }
+.site-footer .base a, .site-footer .linklike { opacity: .75; }
+.linklike { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+.site-footer .linklike:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Third-party embeds in posts wait for cookie consent (see scripts/consent-embeds.mjs and public/consent.js). */
+.consent-embed { position: relative; width: 100%; max-width: 100%; margin: 1.5em 0; background: var(--secondary); border: 1px solid var(--border); display: grid; place-items: center; min-height: 150px; }
+.consent-embed.is-loaded { background: none; border: 0; display: block; }
+.consent-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
+.consent-embed-note { padding: 20px; text-align: center; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.consent-embed-note p { margin: 0 0 12px; }
+.consent-embed-note button { font: 500 14px/1.2 var(--sans); padding: 10px 16px; border: 0; background: var(--primary); color: var(--on-primary); cursor: pointer; }
+.consent-embed-note a { display: inline-block; margin-left: 14px; font-size: 14px; }
+@media (max-width: 480px) { .consent-embed-note a { display: block; margin: 10px 0 0; } }
 
 /* Buttons and forms */
 .btn { display: inline-block; background: var(--primary); color: var(--on-primary); border: 0; border-radius: 0; padding: 14px 24px; font: 500 14px/1.45 var(--sans); cursor: pointer; transition: opacity .2s; }
@@ -180,6 +192,10 @@ main:has(.flush-footer) + .site-footer { margin-top: 0; }
 .prose figcaption { font-size: 14px; color: var(--muted); }
 .prose strong { font-weight: 600; }
 .prose a { text-decoration: underline; text-underline-offset: 2px; }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.2em 0 1.6em; font-size: 14px; line-height: 1.5; display: block; overflow-x: auto; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.prose th { font-size: 12px; font-weight: 600; color: var(--muted); }
+.prose code { font-size: .9em; background: var(--secondary); padding: 1px 5px; }
 .prose blockquote { border-left: 2px solid var(--accent); margin: 1.5em 0; padding-left: 24px; font-family: var(--display); font-size: 24px; }
 .post-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; font-size: 14px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 48px; padding-top: 20px; }
 .share { display: flex; gap: 16px; list-style: none; padding: 0; margin: 0 0 0 auto; }

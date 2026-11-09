@@ -5,8 +5,10 @@ import SubscribeForm from './SubscribeForm.astro';
 interface Props {
   kicker: string; lead: string; formName: string; button: string; strict?: boolean;
   cover: string; coverAlt: string; closingCta: string;
+  /** 'book' shows the cover as a bound guide; 'sheet' shows it as a printed checklist and lists the items as tick boxes. */
+  kind?: 'book' | 'sheet';
 }
-const { kicker, lead, formName, button, strict = false, cover, coverAlt, closingCta } = Astro.props;
+const { kicker, lead, formName, button, strict = false, cover, coverAlt, closingCta, kind = 'book' } = Astro.props;
 
 // The four sections of the checklist, summarised from the downloadable PDF.
 const steps = [
@@ -14,6 +16,14 @@ const steps = [
   ['Write', 'Short paragraphs, the keyword early, a few internal links and one or two to trusted sources. Finish with a clear next step for the reader.'],
   ['Optimise', 'A short URL, a meta title and description that earn the click, headings that summarise each section, and light, well-described images.'],
   ['Promote', 'Give the post a push: share it, mention it to the people you cite, add it to your email signature and pitch related guest posts.'],
+];
+
+// Checklist items, from the downloadable PDF (shown when kind = 'sheet').
+const checklist = [
+  ['Plan', ['Understand your audience', 'Make sure the post offers real value', 'Decide on a topic', 'Match what people are searching for', 'Choose a primary keyword', 'Add semantically related keywords', 'Draft a rough outline']],
+  ['Write', ['Keep paragraphs to 2–3 sentences', 'Use bold and italics for emphasis', 'Use the keyword in the first 100 words', 'Add 1–3 internal links per 500 words', 'Link to 1–2 trusted sources', 'Break up text with lists', 'End with a call to action']],
+  ['Optimise', ['A short, lowercase, hyphenated URL', 'A meta title of 50–60 characters', 'A meta description under 155 characters', 'Headings that summarise each section', 'The primary keyword in the H1', 'Images under 140 KB with descriptive names', 'Alt text that describes each image']],
+  ['Promote', ['Share it across your social accounts', 'Tell the people you mention or link to', 'Add it to your email signature', 'Pitch a related guest post', 'Give it a small paid boost']],
 ];
 ---
   <div class="eb">
@@ -28,7 +38,7 @@ const steps = [
             <p class="eb-small">Free. Unsubscribe from the newsletter any time.</p>
           </div>
         </div>
-        <figure class="eb-book">
+        <figure class:list={[kind === 'sheet' ? 'eb-sheet' : 'eb-book']}>
           <img src={cover} alt={coverAlt} width="900" height="1200" fetchpriority="high" />
         </figure>
       </div>
@@ -37,9 +47,21 @@ const steps = [
     <section class="eb-wrap eb-section">
       <div class="eb-head">
         <p class="eb-label">What’s inside</p>
-        <h2>Four steps, in the order you need them.</h2>
+        <h2>{kind === 'sheet' ? 'Everything on the checklist.' : 'Four steps, in the order you need them.'}</h2>
       </div>
-      <ol class="eb-steps">
+      {kind === 'sheet' ? (
+        <div class="eb-checklist">
+          {checklist.map(([name, items], i) => (
+            <section>
+              <h3><span class="eb-num">0{i + 1}</span> {name}</h3>
+              <ul>
+                {(items as string[]).map((item) => <li><span class="eb-box" aria-hidden="true"></span>{item}</li>)}
+              </ul>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <ol class="eb-steps">
         {steps.map(([name, text], i) => (
           <li>
             <span class="eb-num">0{i + 1}</span>
@@ -47,7 +69,8 @@ const steps = [
             <p>{text}</p>
           </li>
         ))}
-      </ol>
+        </ol>
+      )}
     </section>
 
     <section class="eb-author">
@@ -89,6 +112,18 @@ const steps = [
   .eb-book img { width: 100%; height: auto; border-radius: 3px 8px 8px 3px; box-shadow: 0 2px 4px rgba(20, 30, 20, .12), 0 24px 48px -12px rgba(20, 40, 25, .45); }
   .eb-book::after { content: ''; position: absolute; inset: 0 auto 0 0; width: 18px; border-radius: 3px 0 0 3px; background: linear-gradient(90deg, rgba(0, 0, 0, .28), rgba(255, 255, 255, .08) 55%, transparent); pointer-events: none; }
 
+  /* The checklist shown as a printed sheet: a second sheet peeks out behind it. */
+  .eb-sheet { margin: 0; justify-self: center; width: min(100%, 420px); position: relative; transform: rotate(-1.5deg); }
+  .eb-sheet::before { content: ''; position: absolute; inset: 0; background: var(--card); border: 1px solid var(--border); transform: rotate(4deg) translate(10px, 6px); box-shadow: 0 18px 36px -18px rgba(20, 40, 25, .35); }
+  .eb-sheet img { position: relative; width: 100%; height: auto; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(20, 30, 20, .08), 0 24px 48px -16px rgba(20, 40, 25, .4); }
+
+  .eb-checklist { margin-top: 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; }
+  .eb-checklist h3 { display: flex; align-items: baseline; gap: 12px; font-size: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .eb-checklist .eb-num { font-size: 22px; }
+  .eb-checklist ul { list-style: none; margin: 8px 0 0; padding: 0; }
+  .eb-checklist li { display: flex; align-items: flex-start; gap: 14px; padding: 9px 0; font-size: 16px; line-height: 1.5; }
+  .eb-box { flex: 0 0 18px; height: 18px; margin-top: 3px; border: 1.5px solid var(--primary); border-radius: 4px; }
+
   .eb-section { padding-block: clamp(56px, 8vw, 96px); }
   .eb-head h2 { margin-top: 14px; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.15; max-width: 24ch; }
   .eb-steps { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
@@ -116,6 +151,8 @@ const steps = [
     .eb-book { order: -1; width: min(70%, 280px); }
     .eb-form { padding: 20px; }
     .eb-steps { grid-template-columns: 1fr; }
+    .eb-checklist { grid-template-columns: 1fr; gap: 32px; }
+    .eb-sheet { order: -1; width: min(72%, 290px); }
     .eb-author-grid { grid-template-columns: 1fr; gap: 24px; }
     .eb-author img { width: 140px; }
   }

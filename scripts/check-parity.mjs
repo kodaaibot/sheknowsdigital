@@ -54,6 +54,12 @@ for (const f of [...files].filter((x) => x.endsWith('.html'))) {
     if (el.tagName === 'A' && !u.includes('.') && !u.split('#')[0].endsWith('/')) bad(`${f}: link without trailing slash -> ${u}`);
   }
 }
+// Third-party iframes must wait for cookie consent: their address belongs in data-consent-src, never src.
+for (const f of [...files].filter((x) => x.endsWith('.html'))) {
+  for (const fr of parse(fs.readFileSync('dist' + f, 'utf8')).querySelectorAll('iframe')) {
+    if (fr.getAttribute('src')) bad(`${f}: iframe loads without consent (${fr.getAttribute('src')}). Run node scripts/consent-embeds.mjs`);
+  }
+}
 const sm = fs.readFileSync('dist/sitemap.xml', 'utf8').match(/<loc>[^<]+/g).map((x) => x.slice(5));
 const want = [...inv.filter((r) => !r.robots.includes('noindex')).map((r) => r.url), ...NEW_PAGES.map((p) => BASE + p)];
 for (const u of want) if (!sm.includes(u)) bad(`sitemap missing ${u}`);

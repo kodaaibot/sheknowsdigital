@@ -1,9 +1,16 @@
 ---
+import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import meta from '../data/page-meta.json';
 const m = meta['/cookie-policy/'];
-// The WordPress page has a heading and no body. Add the policy text here.
+const entry = await getEntry('legal', 'cookie-policy');
+const { Content } = await render(entry!);
 ---
 <Base title={m.title} crumb="Cookie Policy">
-  <div class="page-head"><h1>Cookie Policy</h1></div>
+  <div class="post-body">
+    <div class="narrow prose legal">
+      <Content />
+      <p><button type="button" class="btn" data-cookie-settings>Change cookie settings</button></p>
+    </div>
+  </div>
 </Base>

@@ -11,7 +11,7 @@ ogImage: "https://www.sheknowsdigital.com/wp-content/uploads/2021/12/she-knows-d
 
 Today, let’s talk about the difference between WordPress, WordPress.com and WordPress.org. I am really surprised how often I am asked to explain each of them. Hope, this article can help you understand what they all are about.
 
-<iframe src="https://www.youtube.com/embed/OW8o_iEoYHE" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+<div class="consent-embed" data-provider="YouTube" style="aspect-ratio: 560 / 315"><div class="consent-embed-note"><p>This video is hosted by YouTube, which sets its own cookies.</p><button type="button" data-consent-load>Allow embedded content</button><a href="https://www.youtube.com/watch?v=OW8o_iEoYHE" rel="noopener nofollow" target="_blank">Open on YouTube</a></div><iframe data-consent-src="https://www.youtube.com/embed/OW8o_iEoYHE" title="YouTube video" width="560" height="315" loading="lazy" allowfullscreen hidden></iframe></div>
 
 ## **So what is WordPress?**
 

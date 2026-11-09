@@ -17,14 +17,14 @@ When you have content which is of high value it makes sense to get the most out 
 
 If you have a blog post which has been well received but you know you can build upon it and give it a new angle, consider making a video. Whether you run your own YouTube channel, use Vimeo or whatever platform you prefer,you can go back over the content you believe is valuable to your audience and discuss it in a new way on video. You could even consider a Webinar, elaborating on the original post and delivering real value to your audience.
 
-<iframe src="https://www.youtube.com/embed/MHU4hEkLiEY" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>  
+<div class="consent-embed" data-provider="YouTube" style="aspect-ratio: 560 / 315"><div class="consent-embed-note"><p>This video is hosted by YouTube, which sets its own cookies.</p><button type="button" data-consent-load>Allow embedded content</button><a href="https://www.youtube.com/watch?v=MHU4hEkLiEY" rel="noopener nofollow" target="_blank">Open on YouTube</a></div><iframe data-consent-src="https://www.youtube.com/embed/MHU4hEkLiEY" title="YouTube video" width="560" height="315" loading="lazy" allowfullscreen hidden></iframe></div>  
 All you need to record your own videos is a standard webcam or even your iPhone and a microphone (or even iPhone headphones). There are also useful software packages like Camtasia which help with the editing process. Facebook Live video is also a popular way of drawing people in and showing them the value of your content and expertise.
 
 ## 2.   Create a Slideshare
 
 Slideshare is a hugely popular platform as it allows you to turn your content into a virtual presentation. Everyone remembers PowerPoint from school but with Slideshare, your PowerPoints have a real purpose and you can make your content exciting, visual and add value to your old posts.
 
-<iframe style="border: 1px solid #CCC; border-width: 1px; margin-bottom: 5px; max-width: 100%;" src="//www.slideshare.net/slideshow/embed_code/key/tDjILKHVNmjSZk" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+<div class="consent-embed" data-provider="SlideShare" style="aspect-ratio: 595 / 485"><div class="consent-embed-note"><p>This presentation is hosted by SlideShare, which sets its own cookies.</p><button type="button" data-consent-load>Allow embedded content</button><a href="https://www.slideshare.net/slideshow/embed_code/key/tDjILKHVNmjSZk" rel="noopener nofollow" target="_blank">Open on SlideShare</a></div><iframe data-consent-src="https://www.slideshare.net/slideshow/embed_code/key/tDjILKHVNmjSZk" title="SlideShare presentation" width="595" height="485" loading="lazy" allowfullscreen hidden></iframe></div>
 
 Slideshare presentations are usually created using Microsoft PowerPoint or Keynote from Apple. They are a great way of breaking down your content into easily digestible chunks and adding a visual twist.
 
