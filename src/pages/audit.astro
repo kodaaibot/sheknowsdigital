@@ -32,29 +32,30 @@ const groups = [
       <a class="pill-accent" href="/contact/">Book a full audit</a>
     </aside>
   </div>
+  <script>
+    // Weighted score out of 100, with the three bands from the Lovable design.
+    const boxes = [...document.querySelectorAll<HTMLInputElement>('.audit input[type=checkbox]')];
+    const total = boxes.reduce((sum, b) => sum + Number(b.dataset.weight), 0);
+    const bands = [
+      [80, 'Summit-ready', 'Strong foundations. Time to push for the peaks — full-SERP and AI visibility.'],
+      [50, 'Base camp', 'Solid start, but a few gaps could cost you on a steep section. Prioritise the unchecked items.'],
+      [0, 'Still in the valley', 'The roots need attention before growth can compound. A technical audit is the right first step.'],
+    ] as const;
+    const update = () => {
+      const got = boxes.filter((b) => b.checked).reduce((sum, b) => sum + Number(b.dataset.weight), 0);
+      const score = Math.round((got / total) * 100);
+      const [, verdict, advice] = bands.find(([min]) => score >= min)!;
+      document.getElementById('score')!.textContent = String(score);
+      document.getElementById('bar')!.style.width = score + '%';
+      document.getElementById('verdict')!.textContent = verdict;
+      document.getElementById('advice')!.textContent = advice;
+    };
+    boxes.forEach((b) => b.addEventListener('change', update));
+    update();
+  </script>
 </Base>
 
-<script>
-  // Weighted score out of 100, with the three bands from the Lovable design.
-  const boxes = [...document.querySelectorAll<HTMLInputElement>('.audit input[type=checkbox]')];
-  const total = boxes.reduce((sum, b) => sum + Number(b.dataset.weight), 0);
-  const bands = [
-    [80, 'Summit-ready', 'Strong foundations. Time to push for the peaks — full-SERP and AI visibility.'],
-    [50, 'Base camp', 'Solid start, but a few gaps could cost you on a steep section. Prioritise the unchecked items.'],
-    [0, 'Still in the valley', 'The roots need attention before growth can compound. A technical audit is the right first step.'],
-  ] as const;
-  const update = () => {
-    const got = boxes.filter((b) => b.checked).reduce((sum, b) => sum + Number(b.dataset.weight), 0);
-    const score = Math.round((got / total) * 100);
-    const [, verdict, advice] = bands.find(([min]) => score >= min)!;
-    document.getElementById('score')!.textContent = String(score);
-    document.getElementById('bar')!.style.width = score + '%';
-    document.getElementById('verdict')!.textContent = verdict;
-    document.getElementById('advice')!.textContent = advice;
-  };
-  boxes.forEach((b) => b.addEventListener('change', update));
-  update();
-</script>
+
 
 <style>
   .audit { display: grid; grid-template-columns: 1fr 20rem; gap: 40px; align-items: start; }
