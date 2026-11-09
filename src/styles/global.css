@@ -50,6 +50,8 @@ p { margin: 0 0 1em; }
 /* Footer */
 .site-footer { margin-top: 96px; background: var(--primary); color: var(--on-primary); font-size: 14px; line-height: 20px; }
 .site-footer a { color: inherit; }
+/* A page whose last section is a full-width band sits directly on the footer. */
+main:has(.flush-footer) + .site-footer { margin-top: 0; }
 .site-footer .inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 64px; padding: 64px 24px 48px; }
 .site-footer .logo { color: var(--on-primary); font-size: 26px; line-height: 32px; }
 .site-footer .logo span { color: oklch(78% 0.1 55); }

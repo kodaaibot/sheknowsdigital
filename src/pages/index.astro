@@ -11,7 +11,8 @@ const notes = [
 ];
 // Logos already used on the WordPress site.
 const brands = [['exp-logo', 'Expedia'], ['nl-logo-2', 'New Look'], ['eh-logo', 'Emirates Holidays'], ['htls-logo', 'Hotels.com'], ['tr-logo', 'Travel Republic'], ['nf-logo', 'Netflights']];
-const press = [['econsultancy-logo', 'eConsultancy'], ['marieclaire-logo', 'Marie Claire'], ['clickz-logo', 'ClickZ'], ['semcamp-logo', 'SEMCamp']];
+// [file, name, display size in px]. The files are 130px squares with different amounts of padding, so each gets its own size to look balanced.
+const press = [['econsultancy-logo', 'eConsultancy', 84], ['marieclaire-logo', 'Marie Claire', 104], ['clickz-logo', 'ClickZ', 112], ['semcamp-logo', 'SEMCamp', 88]] as const;
 const arrow = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>';
 const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"></path><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"></path><path d="M5 21h14"></path>';
 ---
@@ -146,10 +147,12 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
       </div>
     </section>
 
-    <div class="container press">
-      <p class="label muted">In print &amp; on stage</p>
-      <div>{press.map(([file, name]) => <img src={`/wp-content/uploads/2021/12/${file}.png`} alt={name} width="130" height="130" loading="lazy" />)}</div>
-    </div>
+    <section class="press flush-footer">
+      <div class="container press-inner">
+        <p class="label muted">In print &amp; on stage</p>
+        <div class="press-logos">{press.map(([file, name, size]) => <img src={`/wp-content/uploads/2021/12/${file}.png`} alt={name} width="130" height="130" loading="lazy" style={`--s:${size}px`} />)}</div>
+      </div>
+    </section>
   </div>
 </Base>
 
@@ -235,9 +238,10 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .personal figcaption { margin-top: 12px; font-family: var(--display); font-size: 14px; line-height: 20px; font-style: italic; color: var(--muted); }
   .cat-note { font-family: var(--display); color: var(--muted); display: flex; align-items: center; gap: 9px; margin-top: 28px !important; font-size: 14px; font-style: italic; }
 
-  .press { display: flex; align-items: center; gap: 56px; padding-block: 28px; }
-  .press div { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; }
-  .press img { width: 84px; height: 84px; mix-blend-mode: multiply; }
+  /* Mirrors the "Experience with" strip: label column, then logos spread evenly across the row. */
+  .press-inner { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 20px; padding-block: 26px; }
+  .press-logos { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-inline: 4%; }
+  .press-logos img { width: var(--s); height: var(--s); mix-blend-mode: multiply; opacity: .9; }
 
   @media (max-width: 767px) {
     .container { padding-inline: 24px; }
@@ -266,9 +270,9 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
     .articles { grid-template-columns: 1fr; gap: 32px; }
     .personal-layout { grid-template-columns: 1fr; gap: 36px; }
     .personal figure { max-width: 250px; }
-    .press { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .press div { flex-wrap: nowrap; gap: 12px; width: 100%; justify-content: space-between; }
-    .press img { width: 22%; height: auto; max-width: 84px; }
+    .press-inner { grid-template-columns: 1fr; gap: 12px; padding-block: 26px; }
+    .press-logos { gap: 8px; padding-inline: 0; }
+    .press-logos img { width: calc(var(--s) * .72); height: auto; }
   }
   @media (max-width: 359px) {
     .title { font-size: 42px; }
