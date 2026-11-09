@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SERVICES } from '../lib/site';
+---
+<Base title="SEO Consulting Services — sheknowsdigital" description="Technical audits, large-scale migrations, AI & full-SERP strategy, information architecture and organic growth advisory for enterprise eCommerce.">
+  <section class="intro-head">
+    <p class="kicker">Services</p>
+    <h1>Five routes to the <em>summit</em>.</h1>
+    <p class="lead">Senior, hands-on consulting for enterprise eCommerce. Every engagement starts with your terrain: catalogue size, platform, team capacity and commercial goals.</p>
+  </section>
+  <div class="w-6xl grid-2">
+    {SERVICES.map(([name, tag, text], i) => (
+      <div class:list={['panel', i % 2 ? 'sand' : 'card']}>
+        <p class="kicker">{tag}</p>
+        <h2>{name}</h2>
+        <p>{text}</p>
+      </div>
+    ))}
+    <div class="panel green">
+      <h2>Not sure which trail?</h2>
+      <p>Tell me where you are; we'll pick the route together.</p>
+      <a class="pill-accent" href="/contact/">Start a conversation</a>
+    </div>
+  </div>
+</Base>

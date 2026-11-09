@@ -9,7 +9,7 @@ export async function getStaticPaths() {
   // Previous = older post, next = newer post, as on the WordPress site.
   return posts.map((post, i) => ({
     params: { slug: post.id },
-    props: { post, next: posts[i - 1], prev: posts[i + 1], more: posts.filter((p) => p.id !== post.id).slice(0, 4) },
+    props: { post, next: posts[i - 1], prev: posts[i + 1], more: posts.filter((p) => p.id !== post.id).slice(0, 2) },
   }));
 }
 const { post, prev, next, more } = Astro.props;
@@ -41,17 +41,16 @@ const schema = [
   },
 ];
 ---
-<Base title={d.titleTag ?? `${d.title} - ${SITE.name}`} description={d.description} ogImage={d.ogImage} ogType="article" schema={schema}>
-  <header class="post-head">
-    {d.categories.length > 0 && <p class="eyebrow">{d.categories.map((c, i) => <>{i > 0 && ', '}<a href={`/category/${c}/`}>{CATEGORIES[c] ?? c}</a></>)}</p>}
-    <h1>{d.title}</h1>
-  </header>
-  <article class="post-body">
-    <div class="narrow">
-      <div class="prose"><Content /></div>
-      <div class="post-meta">
+<Base title={d.titleTag ?? `${d.title} - ${SITE.name}`} description={d.description} ogImage={d.ogImage} ogType="article" schema={schema} isPost>
+  <article>
+    <header class="intro-head">
+      <p class="kicker">{d.categories.map((c, i) => <>{i > 0 && ', '}<a href={`/category/${c}/`}>{CATEGORIES[c] ?? c}</a></>)}{d.categories.length > 0 && ' · '}<time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+      <h1>{d.title}</h1>
+    </header>
+    <div class="w-4xl">
+      <div class="prose" style="max-width:720px"><Content /></div>
+      <div class="post-meta" style="max-width:720px">
         <span>{SITE.author}</span>
-        <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
         <ul class="share" aria-label="Share this post">
           <li><a href={`https://www.facebook.com/sharer/sharer.php?u=${share}`} rel="noopener nofollow" target="_blank">Facebook</a></li>
           <li><a href={`https://twitter.com/intent/tweet?url=${share}&text=${encodeURIComponent(d.title)}`} rel="noopener nofollow" target="_blank">Twitter</a></li>
@@ -60,17 +59,12 @@ const schema = [
       </div>
     </div>
   </article>
-  <nav class="post-nav" aria-label="Posts">
+  <nav class="w-4xl post-nav" aria-label="Posts">
     {prev && <a href={`/${prev.id}/`} rel="prev">← {prev.data.title}</a>}
     {next && <a href={`/${next.id}/`} rel="next">{next.data.title} →</a>}
   </nav>
-  <section class="section band-secondary cta-band">
-    <h2>Write Google friendly blog posts in 4 easy steps</h2>
-    <p>An SEO checklist for solopreneurs.</p>
-    <a class="btn dark" href="/seo-checklist-blog-post-writing/">Download the SEO checklist</a>
-  </section>
-  <section class="section">
-    <h2 class="display">More from the blog</h2>
-    <div class="cards four">{more.map((p) => <PostCard post={p} heading="h3" excerpt={false} />)}</div>
+  <section class="w-6xl" style="margin-top:72px">
+    <h2 style="font-size:30px;line-height:36px;margin:0 0 24px">More field notes</h2>
+    <div class="grid-2">{more.map((p) => <PostCard post={p} heading="h3" />)}</div>
   </section>
 </Base>

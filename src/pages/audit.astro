@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+// [item, weight]. Weights and score bands match the Lovable design (weights sum to 27).
+const groups = [
+  ['Crawl & index', [['robots.txt and XML sitemaps are clean and current', 3], ['Canonicals are consistent across product variants', 3], ['Faceted navigation is controlled (no index bloat)', 3]]],
+  ['Rendering & speed', [['Key content and links render without JavaScript', 3], ['Core Web Vitals pass on category & product templates', 2]]],
+  ['Architecture', [['Categories map to real search demand', 3], ['Internal links push authority to revenue pages', 2], ['No orphaned or dead-end product pages', 2]]],
+  ['Full SERP & AI', [['Product, review and breadcrumb structured data is valid', 2], ['Merchant feed is aligned with on-site data', 2], ['You monitor visibility in AI Overviews and LLM answers', 2]]],
+] as const;
+---
+<Base title="eCommerce SEO Health Check — sheknowsdigital" description="An interactive SEO audit checklist for eCommerce sites. Score your crawlability, architecture and AI visibility in two minutes.">
+  <section class="intro-head">
+    <p class="kicker">Interactive health check</p>
+    <h1>How ready is your site for the <em>climb</em>?</h1>
+    <p class="lead">Tick what's true today. Your score updates as you go.</p>
+  </section>
+  <div class="w-6xl audit">
+    <div class="groups">
+      {groups.map(([name, items]) => (
+        <fieldset>
+          <legend>{name}</legend>
+          {items.map(([item, weight]) => <label><input type="checkbox" data-weight={weight} /><span>{item}</span></label>)}
+        </fieldset>
+      ))}
+    </div>
+    <aside aria-live="polite">
+      <p class="kicker">Your altitude</p>
+      <p class="score"><span id="score">0</span><small>/100</small></p>
+      <div class="bar"><div id="bar"></div></div>
+      <h2 id="verdict">Still in the valley</h2>
+      <p id="advice">The roots need attention before growth can compound. A technical audit is the right first step.</p>
+      <a class="pill-accent" href="/contact/">Book a full audit</a>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  // Weighted score out of 100, with the three bands from the Lovable design.
+  const boxes = [...document.querySelectorAll<HTMLInputElement>('.audit input[type=checkbox]')];
+  const total = boxes.reduce((sum, b) => sum + Number(b.dataset.weight), 0);
+  const bands = [
+    [80, 'Summit-ready', 'Strong foundations. Time to push for the peaks — full-SERP and AI visibility.'],
+    [50, 'Base camp', 'Solid start, but a few gaps could cost you on a steep section. Prioritise the unchecked items.'],
+    [0, 'Still in the valley', 'The roots need attention before growth can compound. A technical audit is the right first step.'],
+  ] as const;
+  const update = () => {
+    const got = boxes.filter((b) => b.checked).reduce((sum, b) => sum + Number(b.dataset.weight), 0);
+    const score = Math.round((got / total) * 100);
+    const [, verdict, advice] = bands.find(([min]) => score >= min)!;
+    document.getElementById('score')!.textContent = String(score);
+    document.getElementById('bar')!.style.width = score + '%';
+    document.getElementById('verdict')!.textContent = verdict;
+    document.getElementById('advice')!.textContent = advice;
+  };
+  boxes.forEach((b) => b.addEventListener('change', update));
+  update();
+</script>
+
+<style>
+  .audit { display: grid; grid-template-columns: 1fr 20rem; gap: 40px; align-items: start; }
+  .groups { display: grid; gap: 32px; }
+  fieldset { margin: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--card); padding: 24px; min-width: 0; }
+  legend { padding: 0 8px; font-family: var(--display); font-size: 20px; line-height: 28px; }
+  label { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; cursor: pointer; }
+  input { margin: 4px 0 0; width: 16px; height: 16px; accent-color: var(--primary); flex-shrink: 0; }
+  aside { position: sticky; top: 96px; border-radius: 8px; background: var(--primary); color: var(--on-primary); padding: 32px; }
+  aside .kicker { color: inherit; opacity: .7; }
+  .score { margin: 8px 0 0; font-family: var(--display); font-size: 60px; line-height: 1; }
+  .score small { font-size: 24px; opacity: .6; }
+  .bar { margin-top: 16px; height: 8px; border-radius: 999px; background: color-mix(in oklab, var(--on-primary) 20%, transparent); }
+  .bar div { height: 8px; width: 0; border-radius: 999px; background: var(--clay); transition: width .3s; }
+  aside h2 { margin: 24px 0 0; font-size: 24px; line-height: 32px; }
+  aside p:not(.kicker):not(.score) { margin: 8px 0 0; font-size: 14px; line-height: 20px; opacity: .8; }
+  aside .pill-accent { padding: 10px 20px; font-size: 14px; line-height: 20px; }
+  @media (max-width: 767px) { .audit { grid-template-columns: 1fr; } aside { position: static; } }
+</style>

@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
+import Filters from '../../components/Filters.astro';
 import { getPosts, CATEGORIES } from '../../lib/site';
 import meta from '../../data/page-meta.json';
 
@@ -15,14 +16,13 @@ const { category } = Astro.params;
 const { posts } = Astro.props;
 const m = (meta as Record<string, { title: string; description: string }>)[`/category/${category}/`];
 ---
-<Base title={m.title} description={m.description || undefined}>
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow"><a href="/blog/">Blog</a></p>
-        <h1 class="display" style="margin:0">Blog Category: {CATEGORIES[category]}</h1>
-      </div>
-    </div>
-    <div class="cards">{posts.map((post) => <PostCard post={post} />)}</div>
+<Base title={m.title} description={m.description || undefined} isPost>
+  <section class="intro-head">
+    <p class="kicker"><a href="/blog/">Field notes</a></p>
+    <h1>Blog Category: {CATEGORIES[category]}</h1>
   </section>
+  <div class="w-6xl">
+    <Filters current={category} />
+    <div class="grid-2 notes">{posts.map((post) => <PostCard post={post} />)}</div>
+  </div>
 </Base>

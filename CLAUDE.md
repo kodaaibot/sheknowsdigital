@@ -14,9 +14,14 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 
 ## Design
 
-Branch `theme-refresh` restyles the site after Mags' Lovable reference design: Cormorant Garamond display type, Karla body, cream ground, deep green primary, terracotta accent, 4px radii, hairline-bordered tile grids. Tokens live at the top of `src/styles/global.css`. `main` holds the faithful port of the old WordPress look.
+Branch `theme-refresh` carries the design Mags chose: her Lovable "sheknowsdigital" project (Fraunces display type, Manrope text, warm paper ground, forest green, clay accent). `main` still holds the faithful port of the old WordPress look.
 
-`/home-alt/` (`src/pages/home-alt.astro`) is an alternative homepage: a like-for-like rebuild of the Lovable "Me Time Away" page, with its own header, footer and scoped styles. It is noindex and out of the sitemap. The eight retreat-type tiles are not links because the `/retreats/*` pages do not exist here.
+- `/` (`src/pages/index.astro`) is a like-for-like rebuild of the Lovable homepage, copy included. Its three "field notes" cards are the design's placeholder articles and are not links: those articles are not written yet.
+- `/services/` and `/audit/` (interactive health check, weights and score bands copied from the design) are new pages that did not exist on WordPress.
+- `/about/` and `/contact/` use the Lovable pages. `/about/` also keeps the original WordPress story under "How it started" so no content is lost.
+- `/blog/` is "Field Notes": the Lovable layout filled with the 24 real posts, with the real categories as filter links.
+- Home, About, Contact and Blog use the Lovable title tags and meta descriptions. These four are the only deliberate metadata changes and are listed as `RETITLED` in `scripts/check-parity.mjs`.
+- Design tokens are at the top of `src/styles/global.css`.
 
 ## Commands
 

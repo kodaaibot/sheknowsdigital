@@ -13,6 +13,10 @@ const lines = []; let buf = '';
 for (const r of rows) { buf = buf ? buf + '\n' + r : r; if ((buf.match(/"/g) || []).length % 2 === 0) { lines.push(buf); buf = ''; } }
 const inv = lines.map((l) => Object.fromEntries(csv(l).map((v, i) => [header[i], v])));
 
+// Deliberate changes that came with the new design (Nov 2026). Everything else must match WordPress.
+const NEW_PAGES = ['/services/', '/audit/'];
+const RETITLED = ['/', '/about/', '/contact/', '/blog/'];
+
 const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
 let fail = 0;
 const bad = (msg) => { fail++; console.log('FAIL', msg); };
@@ -27,8 +31,9 @@ for (const r of inv) {
   const doc = parse(fs.readFileSync(f, 'utf8'));
   const meta = (sel, attr = 'content') => doc.querySelector(sel)?.getAttribute(attr) || '';
   const title = norm(doc.querySelector('title')?.text);
-  if (title !== norm(r.title_tag)) bad(`${r.path} title: "${title}" vs "${r.title_tag}"`);
-  if (norm(meta('meta[name=description]')) !== norm(r.meta_description)) bad(`${r.path} meta description differs`);
+  const retitled = RETITLED.includes(r.path);
+  if (!retitled && title !== norm(r.title_tag)) bad(`${r.path} title: "${title}" vs "${r.title_tag}"`);
+  if (!retitled && norm(meta('meta[name=description]')) !== norm(r.meta_description)) bad(`${r.path} meta description differs`);
   if (meta('link[rel=canonical]', 'href') !== r.url) bad(`${r.path} canonical ${meta('link[rel=canonical]', 'href')}`);
   const wasNoindex = r.robots.includes('noindex'), isNoindex = meta('meta[name=robots]').includes('noindex');
   if (wasNoindex !== isNoindex) bad(`${r.path} robots changed`);
@@ -49,9 +54,10 @@ for (const f of [...files].filter((x) => x.endsWith('.html'))) {
   }
 }
 const sm = fs.readFileSync('dist/sitemap.xml', 'utf8').match(/<loc>[^<]+/g).map((x) => x.slice(5));
-const want = inv.filter((r) => !r.robots.includes('noindex')).map((r) => r.url);
+const want = [...inv.filter((r) => !r.robots.includes('noindex')).map((r) => r.url), ...NEW_PAGES.map((p) => BASE + p)];
 for (const u of want) if (!sm.includes(u)) bad(`sitemap missing ${u}`);
 for (const u of sm) if (!want.includes(u)) bad(`sitemap extra ${u}`);
 
+console.log(`Retitled on purpose: ${RETITLED.join(' ')} | New pages: ${NEW_PAGES.join(' ')}`);
 console.log(`${inv.length} URLs checked, ${sm.length} in sitemap, ${fail} failures`);
 process.exit(fail ? 1 : 0);

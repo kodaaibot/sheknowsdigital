@@ -1,26 +1,35 @@
 ---
 import Base from '../layouts/Base.astro';
-import meta from '../data/page-meta.json';
-const m = meta['/contact/'];
+import { SERVICES } from '../lib/site';
 ---
-<Base title={m.title} description={m.description}>
-  <section class="wrap split contact">
-    <img src="/wp-content/uploads/2022/01/Mags-Sikora-SEO-Strategist.webp" alt="Mags Sikora SEO Strategist" width="683" height="1024" />
-    <div>
-      <p class="eyebrow">Contact me</p>
-      <h1 class="display">Got a comment or a burning Q that can’t be Googled?</h1>
-      <p class="muted">Please note, due to the workload, I am currently unable to take new assignments.</p>
-      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact" />
-        <p class="hp"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-        <input type="text" name="name" placeholder="Name" aria-label="Name" autocomplete="name" />
-        <input type="email" name="email" placeholder="Email" aria-label="Email" autocomplete="email" required />
-        <textarea name="message" placeholder="Message" aria-label="Message"></textarea>
-        <p class="actions"><button class="btn" type="submit">Send</button></p>
-        <p class="form-note" role="status" hidden></p>
-      </form>
-    </div>
+<Base title="Book a Consultation — sheknowsdigital" description="Enquire about technical audits, migrations or SEO advisory with Mags Sikora.">
+  <section class="intro-head">
+    <p class="kicker">Enquiries</p>
+    <h1>Let's plan your <em>route</em>.</h1>
+    <p class="lead">Share a little about your site and goals. I reply within two working days — usually sooner, unless I'm on a summit.</p>
   </section>
+  <div class="w-3xl">
+    <form class="grid-2" style="gap:20px" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hp" style="position:absolute;left:-9999px"><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <label class="field">Name<input type="text" name="name" autocomplete="name" required /></label>
+      <label class="field">Work email<input type="email" name="email" autocomplete="email" required /></label>
+      <label class="field">Company &amp; website<input type="text" name="company" autocomplete="organization" /></label>
+      <label class="field">Area of interest
+        <select name="interest">{SERVICES.map(([name]) => <option>{name}</option>)}</select>
+      </label>
+      <label class="field span-2">Preferred timing
+        <select name="timing">
+          <option>Exploratory call this month</option>
+          <option>Project starting next quarter</option>
+          <option>Urgent — migration or traffic drop</option>
+        </select>
+      </label>
+      <label class="field span-2">Tell me about the terrain<textarea name="message" rows="5" required></textarea></label>
+      <button class="pill-primary" type="submit">Send enquiry</button>
+      <p class="form-note span-2" role="status" hidden></p>
+    </form>
+  </div>
   <script>
     // Submit in place and show a confirmation. Without JavaScript the form still posts normally.
     const form = document.querySelector<HTMLFormElement>('form[name="contact"]');
@@ -32,9 +41,9 @@ const m = meta['/contact/'];
         const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
         if (!res.ok) throw new Error(String(res.status));
         form.reset();
-        note!.textContent = 'Thank you. Your message has been sent.';
+        note!.textContent = 'Thank you. Your enquiry has been sent.';
       } catch {
-        note!.textContent = 'Sorry, the message could not be sent. Please try again in a moment.';
+        note!.textContent = 'Sorry, the enquiry could not be sent. Please try again in a moment.';
       }
       note!.hidden = false;
     });

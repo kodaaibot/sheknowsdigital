@@ -1,15 +1,12 @@
 ---
 import { CATEGORIES, formatDate } from '../lib/site';
-interface Props { post: any; heading?: 'h2' | 'h3'; excerpt?: boolean }
-const { post, heading: H = 'h2', excerpt = true } = Astro.props;
+interface Props { post: any; heading?: 'h2' | 'h3' }
+const { post, heading: H = 'h2' } = Astro.props;
 const d = post.data;
+const cat = d.categories[0];
 ---
-<article class="post-card">
-  <a class:list={['thumb', { blank: !d.featuredImage }]} href={`/${post.id}/`} tabindex="-1" aria-hidden="true">
-    {d.featuredImage ? <img src={d.featuredImage} alt="" loading="lazy" /> : <span>she knows digital</span>}
-  </a>
-  {d.categories.length > 0 && <p class="cat">{d.categories.map((c: string, i: number) => <>{i > 0 && ', '}<a href={`/category/${c}/`}>{CATEGORIES[c] ?? c}</a></>)}</p>}
+<article class="note-card">
+  <p class="kicker">{cat ? (CATEGORIES[cat] ?? cat) + ' · ' : ''}<time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
   <H><a href={`/${post.id}/`}>{d.title}</a></H>
-  {excerpt && d.excerpt && <p class="excerpt">{d.excerpt}</p>}
-  <p class="meta"><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+  {d.excerpt && <p>{d.excerpt}</p>}
 </article>

@@ -1,0 +1,8 @@
+---
+import { CATEGORIES } from '../lib/site';
+const { current } = Astro.props;
+---
+<nav class="filters" aria-label="Categories">
+  <a href="/blog/" aria-current={!current ? 'page' : undefined}>All</a>
+  {Object.entries(CATEGORIES).map(([slug, name]) => <a href={`/category/${slug}/`} aria-current={current === slug ? 'page' : undefined}>{name}</a>)}
+</nav>

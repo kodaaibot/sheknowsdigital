@@ -1,12 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import meta from '../data/page-meta.json';
-const m = meta['/about/'];
+const trail = [
+  ['Expedia', 'Global travel search at scale across markets and languages.'],
+  ['Emirates Group', "Enterprise SEO for one of the world's leading travel groups."],
+  ['New Look', 'Fashion eCommerce: category architecture, faceted navigation, seasonal demand.'],
+  ['Autotrader', 'Marketplace SEO across millions of dynamic listings.'],
+];
+const traits = [
+  ['Mountains', 'Long ridges teach patience and planning. So do migrations.'],
+  ['The garden', 'What you plant this spring feeds you in three summers.'],
+  ['Cats', 'Independent, curious, and suspicious of anything too shiny.'],
+  ['Nature', 'Ecosystems over hacks. Everything is connected.'],
+];
 ---
-<Base title={m.title} description={m.description}>
-  <img class="portrait" src="/wp-content/uploads/2022/01/mags-sikora-SEO-expert-london.webp" alt="Mags Sikora, SEO expert, London" width="400" height="400" />
-  <div class="story">
-    <h1>Hi, there!</h1>
+<Base title="About Mags Sikora — sheknowsdigital" description="18+ years of enterprise eCommerce SEO. Nature lover, gardener, mountain hiker and cat person.">
+  <section class="intro-head">
+    <p class="kicker">About</p>
+    <h1>Hi, I'm Mags. I've been <em>tending search</em> for 18 years.</h1>
+    <p class="lead">I'm a senior eCommerce SEO consultant who has worked inside and alongside some of the largest digital brands in travel, fashion and automotive. Off-screen you'll find me on a mountain trail, elbow-deep in soil, or negotiating desk space with my cat.</p>
+  </section>
+  <section class="w-4xl grid-2" style="gap:40px;align-items:start">
+    <figure style="margin:0">
+      <img src="/images/home/mags-sikora-about.webp" alt="Portrait of Mags Sikora, eCommerce SEO consultant" width="640" height="640" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px" />
+      <figcaption style="margin-top:12px;font-size:14px;color:var(--muted)">Mags Sikora · sheknowsdigital</figcaption>
+    </figure>
+    <div>
+      <h2 style="font-size:30px;line-height:36px;margin:0">The trail so far</h2>
+      <ol class="timeline">
+        {trail.map(([name, text]) => <li><h3>{name}</h3><p>{text}</p></li>)}
+      </ol>
+    </div>
+  </section>
+  <section class="w-6xl grid-4" style="margin-top:64px">
+    {traits.map(([name, text]) => <div class="trait"><h3>{name}</h3><p>{text}</p></div>)}
+  </section>
+  {/* The original About page story from the WordPress site, kept so the page loses no content. Not part of the Lovable design. */}
+  <section class="w-3xl prose" style="margin-top:96px">
+    <h2>How it started</h2>
     <p><strong>This is the story of the best investment of my life.</strong></p>
     <p>I arrived in London in August 2003 after a 48-hour bus journey. I came to London on my own. I didn’t know anyone here. I was 22.</p>
     <p>With 60 GBP in my pocket (thinking it’s a lot!), I wanted to learn how to speak English.</p>
@@ -32,5 +62,5 @@ const m = meta['/about/'];
     <p>Learning SEO appears to be the best investment I have done in my life.</p>
     <p>… and I know it can be yours too!</p>
     <p>You can find me on <a href="https://www.linkedin.com/in/magdalenasikora/">LinkedIn</a> | <a href="https://www.youtube.com/c/Sheknowsdigital">YouTube</a> | <a href="https://www.facebook.com/sheknowsdigital">Facebook</a> | <a href="https://www.magstags.com/">Magstags</a> |<br />Please also see my latest project: <a href="https://sendlikeapro.com/">Send Like A Pro!</a></p>
-  </div>
+  </section>
 </Base>

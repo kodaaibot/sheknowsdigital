@@ -1,10 +1,9 @@
 ---
-import '@fontsource/cormorant-garamond/400.css';
-import '@fontsource/cormorant-garamond/500.css';
-import '@fontsource/cormorant-garamond/400-italic.css';
-import '@fontsource/karla/400.css';
-import '@fontsource/karla/500.css';
-import '@fontsource/karla/600.css';
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/fraunces/opsz-italic.css';
+import '@fontsource/manrope/400.css';
+import '@fontsource/manrope/500.css';
+import '@fontsource/manrope/600.css';
 import '../styles/global.css';
 import { SITE, NAV } from '../lib/site';
 
@@ -14,12 +13,13 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   noindex?: boolean;
-  overlayHeader?: boolean;
-  /** Render only the page body: no shared header or footer. */
-  bare?: boolean;
+  /** Menu items for this page. Defaults to the site menu. */
+  nav?: { href: string; label: string }[];
+  /** Highlights Field Notes in the menu on posts and category pages. */
+  isPost?: boolean;
   schema?: object[];
 }
-const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, overlayHeader = false, bare = false, schema = [] } = Astro.props;
+const { title, description, ogImage = SITE.defaultOgImage, ogType = 'website', noindex = false, nav = NAV, isPost = false, schema = [] } = Astro.props;
 const path = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : Astro.url.pathname + '/';
 const canonical = new URL(path, SITE.url).href;
 const graph = {
@@ -63,29 +63,34 @@ const graph = {
   </head>
   <body>
     <a class="skip" href="#content">Skip to content</a>
-    {!bare && (
-    <header class:list={['site-header', { overlay: overlayHeader }]}>
-      <a class="logo" href="/">she knows digital</a>
-      <nav aria-label="Main">
-        <ul>
-          {NAV.map((n) => (
-            <li><a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a></li>
-          ))}
-        </ul>
-      </nav>
+    <header class="site-header">
+      <div class="inner">
+        <a class="logo" href="/">she<span>knows</span>digital</a>
+        <nav aria-label="Main">
+          <ul>
+            {nav.map((n) => (
+              <li><a href={n.href} aria-current={path === n.href || (n.href === '/blog/' && isPost) ? 'page' : undefined}>{n.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <a class="pill" href="/contact/">Book a call</a>
+      </div>
     </header>
-    )}
     <main id="content"><slot /></main>
-    {!bare && (
     <footer class="site-footer">
-      <ul>
-        <li><a href="/contact/">Contact</a></li>
-        <li>Terms of Use</li>
-        <li>Privacy and Cookie Policy</li>
-        <li><a href="/disclaimer/">Disclaimer</a></li>
-      </ul>
-      <p>© {new Date().getFullYear()} She Knows Digital</p>
+      <div class="inner">
+        <div>
+          <p class="name">Mags Sikora</p>
+          <p class="blurb">Senior eCommerce SEO Consultant. Written between hikes, with a cat on the keyboard.</p>
+        </div>
+        <ul>
+          {nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/seo-checklist-blog-post-writing/">SEO Checklist</a></li>
+          <li><a href="/disclaimer/">Disclaimer</a></li>
+        </ul>
+        <p class="copy">© {new Date().getFullYear()} sheknowsdigital. Grown organically.</p>
+      </div>
     </footer>
-    )}
   </body>
 </html>

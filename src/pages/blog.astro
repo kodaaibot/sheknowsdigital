@@ -1,17 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
+import Filters from '../components/Filters.astro';
 import { getPosts } from '../lib/site';
-import meta from '../data/page-meta.json';
 const posts = await getPosts();
-const m = meta['/blog/'];
 ---
-<Base title={m.title} description={m.description}>
-  <section class="section">
-    <div class="section-head">
-      <h1 class="display">Your SEO Resources</h1>
-      <p>Practical SEO guides for bloggers, solopreneurs and site owners.</p>
-    </div>
-    <div class="cards">{posts.map((post) => <PostCard post={post} />)}</div>
+<Base title="Field Notes — SEO Thought Leadership | sheknowsdigital" description="Articles on enterprise eCommerce SEO, migrations, AI search and information architecture by Mags Sikora.">
+  <section class="intro-head">
+    <p class="kicker">Field notes</p>
+    <h1>Notes from the trail and the garden.</h1>
   </section>
+  <div class="w-6xl">
+    <Filters />
+    <div class="grid-2 notes">{posts.map((post) => <PostCard post={post} />)}</div>
+  </div>
 </Base>
