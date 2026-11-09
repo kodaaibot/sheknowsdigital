@@ -24,8 +24,8 @@ This is Mags Sikora's own consultancy site. Keep it separate from client work an
 - `/about/` and `/contact/` use the Lovable pages. `/about/` also keeps the original WordPress story under "How it started" so no content is lost.
 - `/blog/` is "Field Notes": the Lovable layout filled with the 24 real posts, with the real categories as filter links.
 - Home, About, Contact and Blog use the Lovable title tags and meta descriptions. The checklist page's meta description also changed. These five are the only deliberate metadata changes and are listed as `RETITLED` in `scripts/check-parity.mjs`.
-- Homepage section "04 / In the workshop" lists the tools Mags has built. It names magstags.com in plain text but must not link to it (her instruction). InvuAI and Send Like a Pro are linked.
-- The blog is an archive: `src/components/BlogNote.astro` tells readers that newer writing is on MagsTags, and links to `magstags.com/notes/`.
+- Homepage section "04 / In the workshop" lists the tools Mags has built. Link targets, as Mags specified: `https://www.magstags.com/`, `https://www.invuai.com/` and `https://www.sendlikeapro.com/`. Use exactly these URLs wherever the three are linked.
+- The blog is an archive: `src/components/BlogNote.astro` tells readers that newer writing is on MagsTags, and links to `https://www.magstags.com/`.
 - Soy is Mags' cat. The photo and its caption on the homepage are hers.
 - Autotrader must not appear anywhere on the site (Mags' instruction, Nov 2026). The homepage "Experience with" strip uses the brand logos from `public/wp-content/uploads/2022/02/`.
 - The About page career trail is Mags' own copy. Do not rewrite it.

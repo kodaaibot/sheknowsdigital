@@ -13,12 +13,12 @@ const notes = [
 const brands = [['exp-logo', 'Expedia'], ['nl-logo-2', 'New Look'], ['eh-logo', 'Emirates Holidays'], ['htls-logo', 'Hotels.com'], ['tr-logo', 'Travel Republic'], ['nf-logo', 'Netflights']];
 // [file, name, display size in px]. The files are 130px squares with different amounts of padding, so each gets its own size to look balanced.
 const press = [['econsultancy-logo', 'eConsultancy', 84], ['marieclaire-logo', 'Marie Claire', 104], ['clickz-logo', 'ClickZ', 112], ['semcamp-logo', 'SEMCamp', 88]] as const;
-// Things Mags has built. MagsTags is named in the intro but deliberately not linked from this section.
+// Things Mags has built. Link targets are the ones Mags specified (Nov 2026).
 const tools = [
-  ['SEO toolkit', 'MagsTags tools', 'Free generators and checkers for schema markup, hreflang, robots.txt, sitemaps and Merchant Center feeds. No logins.', ''],
+  ['SEO toolkit', 'MagsTags tools', 'Free generators and checkers for schema markup, hreflang, robots.txt, sitemaps and Merchant Center feeds. No logins.', 'https://www.magstags.com/'],
   ['Chrome extension', 'Schema Extractor', 'Pulls the JSON-LD, Microdata and RDFa out of any page in one click, so you can read structured data without opening the source.', ''],
-  ['AI search visibility', 'InvuAI', 'Tracks whether ChatGPT, Gemini, Perplexity and Google’s AI name your brand, next to your organic rankings.', 'https://invuai.com/'],
-  ['Email signatures', 'Send Like a Pro', 'Builds clean, professional HTML email signatures for Gmail, Outlook and Apple Mail in a few minutes.', 'https://sendlikeapro.com/'],
+  ['AI search visibility', 'InvuAI', 'Tracks whether ChatGPT, Gemini, Perplexity and Google’s AI name your brand, next to your organic rankings.', 'https://www.invuai.com/'],
+  ['Email signatures', 'Send Like a Pro', 'Builds clean, professional HTML email signatures for Gmail, Outlook and Apple Mail in a few minutes.', 'https://www.sendlikeapro.com/'],
 ];
 const arrow = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>';
 const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"></path><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"></path><path d="M5 21h14"></path>';
@@ -142,7 +142,7 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
           <h2 class="heading mt20">I build the tools, <em class="clay">too.</em></h2>
         </div>
       </div>
-      <p class="lede">When the tool I need doesn’t exist, I make it. Most began as shortcuts for my own audits. You’ll find the SEO ones at magstags.com.</p>
+      <p class="lede">When the tool I need doesn’t exist, I make it. Most began as shortcuts for my own audits. You’ll find the SEO ones at <a class="inline" href="https://www.magstags.com/" rel="noopener">magstags.com</a>.</p>
       <div class="tools">
         {tools.map(([kind, name, text, href]) => (
           <article>
@@ -265,6 +265,7 @@ const sprout = '<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0
   .personal-layout { display: grid; grid-template-columns: 280px 1fr 220px; align-items: center; gap: 64px; }
   .soy { align-self: end; }
   .soy img { aspect-ratio: 3 / 4 !important; border-radius: 4px; }
+  .inline { color: var(--accent-text); text-decoration: underline; text-underline-offset: 3px; }
   .tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; margin-top: 40px; }
   .tools article { border-top: 1px solid var(--border); padding-top: 20px; }
   .tools .kind { font-size: 12px; line-height: 16px; }
